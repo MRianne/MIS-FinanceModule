@@ -29,137 +29,91 @@
         	<nav id="sidebar">
                 <div class="sidebar-header"  id="sidebarCollapse">
                     <h3>Association of Computer Machinery</h3>
-                    <strong>ACM</strong>
+                    <strong><img src="../img/acm.png" width="30" /></strong>
                 </div>
 
-                <ul class="list-unstyled components">
+               <ul class="list-unstyled components">
                     <li>
-                        <a href="../index.php" aria-expanded="false">
+                        <a href="../index.html" aria-expanded="false">
                             <i class="glyphicon glyphicon-home"></i>
                             Home
                         </a>
                       
                     </li>
                     
-                     <li>
-                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                        Transaction and Expenses </a>
-                    <div class="collapse" id="collapseExample">
-                        <a data-toggle="modal" href="#portfolioModal1">Add Transaction</a>
-                        <a data-toggle="modal" href="#portfolioModal2">Add Expense</a>
-                    </div>
-
-                </li>
-
-
-                <li>
-                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
-                        Reports</a>
-                        <div class="collapse" id="collapseExample1">
-                            <a href="Transaction Reports.html">
-                                <i class="glyphicon glyphicon-link"></i>
-                                Transaction Reports
-                            </a>
-                            <a href="Expense Reports.html">
-                                <i class="glyphicon glyphicon-paperclip"></i>
-                                Expense Reports
-                            </a>
-                            <a href="Overall Report.html">
-                                <i class="glyphicon glyphicon-send"></i>
-                                Overall Reports
-                            </a>
-                        </div>
-                </li>
+                    <li>
+                        <a href="Transaction Reports.html">
+                            <i class="glyphicon glyphicon-link"></i>
+                            Transaction Reports
+                        </a>
+                    </li>
+                    <li>
+                        <a href="Expense Report.html">
+                            <i class="glyphicon glyphicon-paperclip"></i>
+                            Expense Reports
+                        </a>
+                    </li>
+                    <li  class="active">
+                        <a href="#">
+                            <i class="glyphicon glyphicon-send"></i>
+                            Overall Reports
+                        </a>
+                    </li>
                 </ul>
-
+  <ul class="list-unstyled CTAs">
+                    <li><a data-toggle="modal" href="#portfolioModal1" class="article">Add Transaction</a></li>
+                    <li><a data-toggle="modal" href="#portfolioModal2" class="article">Add Expense</a></li>
+                </ul>
               
             </nav>
             <div class="content">
+                <h2 class="text-uppercase" style="padding: 20px;">overall report</h2>
+                <div class="container" style="margin:auto;">
+                 <div class="row">
+                      <div class="col-sm-3">
+                          <div class="card1">
+                              <h4><b>Transaction Reports</b></h4> 
+                            <p>subtitle</p> 
+                            <center><canvas style="margin:auto;" id="mycanvas" width="200" height="200"></canvas></center>
+                            <p id="transac-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat justo blandit, eleifend nunc eget, tristique enim. </p> 
+         <a href="Transaction Reports.html"><button type="button" class="btn btn-info navbar-btn">
+                                <i class="glyphicon glyphicon-align-left"></i>
+                                <span>View Transaction Report</span>
+                            </button></a>
 
-		<div class="container">
+                          </div>
+                      </div>
 
-		<div class="row">
+                      <div class="col-sm-3">
+                          <div class="card1">
+                              <h4><b>Overall Reports</b></h4> 
+                            <p>subtitle</p> 
+                            <center><canvas style="margin:auto;" id="mycanvas3" width="200" height="200"></canvas></center>
+                            <p id="transac-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat justo blandit, eleifend nunc eget, tristique enim. </p> 
+         tristique enim. </p> 
+        
 
-			<div class="col-sm-3">
-			</div>
+                          </div>
+                      </div>
 
-			<div class="col-sm-3">
-				
-				<canvas id="mycanvas" width="256" height="256"></canvas>
+                      <div class="col-sm-3">
+                          <div class="card1">
+                              <h4><b>Expense Reports</b></h4> 
+                            <p>subtitle</p> 
+                            <center><canvas style="margin:auto;" id="mycanvas2" width="200" height="200"></canvas></center>
+                            <p id="transac-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat justo blandit, eleifend nunc eget, tristique enim. </p> 
+        tristique enim. </p> 
+         <a href="Expense Reports.html"><button type="button" class="btn btn-info navbar-btn">
+                                <i class="glyphicon glyphicon-align-left"></i>
+                                <span>View Expense Report</span>
+                            </button></a>
 
-			</div>
+                          </div>
+                      </div>
+                    </div>
 
-			<div class="col-sm-3">
-				<div class="info">
+                </div>
 
-				<h2 id="transac-title">TRANSACTIONS</h2>
-				<p id="transac-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat justo blandit, eleifend nunc eget, tristique enim. </p>	
-
-				<h1 id="transac-number">+142</h1>
-				<p id="transac-ninfo">From Last Year </p>	
-
-				</div>
-			</div>
-
-			<div class="col-sm-4">
-			</div>
-
-
-
-		</div>
-
-
-
-		
-			<div class="row">
-			<div class="col-sm-3">
-			</div>
-
-			<div class="col-sm-3">
-				
-				<canvas id="mycanvas2" width="256" height="256"></canvas>
-
-			</div>
-			<div class="col-sm-3">
-				<div class="info2">
-
-				<h2 id="transac-title">EXPENSES</h2>
-				<p id="transac-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat justo blandit, eleifend nunc eget, tristique enim. </p>	
-
-				<h1 id="transac-number">+300</h1>
-				<p id="transac-ninfo">From Last Year </p>	
-
-				</div>
-			</div>
-			<div class="col-sm-3">
-			</div>
-			</div>
-
-
-			<div class="row">
-			<div class="col-sm-3">
-			</div>
-
-			<div class="col-sm-3">
-				
-				<canvas id="mycanvas3" width="256" height="256"></canvas>
-
-			</div>
-			<div class="col-sm-3">
-				<div class="info3">
-
-				<h2 id="transac-title">OVERALL</h2>
-				<p id="transac-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat justo blandit, eleifend nunc eget, tristique enim. </p>	
-
-				<h1 id="transac-number">+750</h1>
-				<p id="transac-ninfo">From Last Year </p>	
-
-				</div>
-			</div>
-			<div class="col-sm-3">
-			</div>
-			</div>
-	
 		
 
 
