@@ -16,17 +16,17 @@ $conn = new mysqli($mysql_hostname, $mysql_user, $mysql_password,$mysql_database
 $flag=0; $sum=0;
 //$termm = $_POST['s_term'];
 //$syy = $_POST['s_sy'];
-$termm = 1;
-$syy = 2018;
+$termm = 3;
+$syy = '2017-2018';
 
-$result = mysqli_query($conn,"select amount from transactions where term=".$termm." && sy=".$syy."");
+$result = mysqli_query($conn,"select amount from transactions where term=".$termm." && sy='".$syy."'");
 while($row = mysqli_fetch_array($result)) {
     $amnt = $row['amount'];
     $sum = $sum+$amnt;
 }
 echo "<h3> Total Budget: ".$sum."</h3>";
 $dif=0;
-$result1 = mysqli_query($conn,"select amount from expense where term=".$termm." && sy=".$syy."");
+$result1 = mysqli_query($conn,"select amount from expense where term=".$termm." && sy='".$syy."'");
 while($row1  = mysqli_fetch_array($result1)){
     $amnt1 = $row1['amount'];
     $dif = $dif+$amnt1;
