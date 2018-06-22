@@ -8,15 +8,25 @@
         <title>Expense Reports</title>
 
          <!-- Bootstrap CSS CDN -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+       
         <!-- Our Custom CSS -->
         <link rel="stylesheet" href="../css/style4.css">
         <link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
-
 <!--===============================================================================================-->
+
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
-        
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <script type="text/javascript">
+ $(document).ready(function(){
+ var url = "modal.html";
+ jQuery('#modellink').click(function(e) {
+     $('.modal-container').load(url,function(result){
+ $('#portfolioModal1').modal({show:true});
+ });
+ });
+ });
+</script>
 <script>
 window.onload = function () {
 
@@ -113,51 +123,22 @@ function toogleDataSeries(e){
     <body>
 
         <div class="wrapper">
-            <!-- Sidebar Holder -->
-            <nav id="sidebar">
-                <div class="sidebar-header"  id="sidebarCollapse">
-                    <h3>Association of Computer Machinery</h3>
-                    <strong><img src="../img/acm.png" width="30" /></strong>
-                </div>
-
-               <ul class="list-unstyled components">
-                    <li>
-                        <a href="../index.html" aria-expanded="false">
-                            <i class="glyphicon glyphicon-home"></i>
-                            Home
-                        </a>
-                      
-                    </li>
-                    
-                    <li>
-                        <a href="Transaction Reports.html">
-                            <i class="glyphicon glyphicon-link"></i>
-                            Transaction Reports
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            <i class="glyphicon glyphicon-paperclip"></i>
-                            Expense Reports
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Overall Report.html">
-                            <i class="glyphicon glyphicon-send"></i>
-                            Overall Reports
-                        </a>
-                    </li>
-                </ul>
-  <ul class="list-unstyled CTAs">
-                    <li><a data-toggle="modal" href="#portfolioModal1" class="article">Add Transaction</a></li>
-                    <li><a data-toggle="modal" href="#portfolioModal2" class="article">Add Expense</a></li>
-                </ul>
-              
-            </nav>
-
-            <!-- Page Content Holder -->
+    
             <div id="content">
 
+            <div class="float">                
+
+            <div class="box">
+                <a  href="#popup1">
+            <i class="fa fa-plus my-float">add transaction</i>
+            </a>
+            </div>
+
+             
+            <a href="#portfolioModal1" data-toggle="modal" >
+            <i class="fa fa-plus my-float">add expense</i>
+            </a>
+        </div>
 
 <div id="chartContainer" style="height: 300px; width: 70%; margin: auto;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -308,23 +289,73 @@ function toogleDataSeries(e){
 
              
             </div>
+
         </div>
 
 
 
+<div id="popup1" class="overlay " >
+    <div class="popup">
+        <a class="close" href="#">&times;</a>
+        <div class="content">
+              <h2 class="text-uppercase" style="text-align: center;">Transaction</h2>
+                                <p class="item-intro text-muted" style="text-align: center;">Lorem ipsum dolor sit amet consectetur.</p>
+                                <img class="img-fluid d-block mx-auto" src="img/portfolio/01-full.jpg" alt="">
+
+                                <div class="input-field">
+
+                                    <form action="/action_page.php">
+                                        <label for="searchT"><h6>Search</h6></label>
+                                        <input type="text">
+                                        <label for="id">Student Id</label>
+                                        <input type="text" id="StuNum" name="firstname" placeholder="Your student id..">
+                                        <label for="name">First Name</label>
+                                        <input type="text" id="fname" name="firstname" placeholder="Your first name..">
+                                        <label for="name">Last Name</label>
+                                        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+                                        <label for="amount">Payment Fee deposit</label>
+                                        <input class="form-control" type="number" id="pfd" name="payment" placeholder="Input payment..">
+                                        <label for="type">Type</label>
+                                        <select id="type" name="type">
+                                            <option value="registration">Registration Fee</option>
+                                            <option value="renewal">Renewal</option>
+                                            <option value="tshirt">T-Shirt</option>
+                                            <option value="oth">Others</option>
+                                        </select>
+                                        <label for="type">Term</label>
+                                        <select id="term" name="term">
+                                            <option value="firstTerm">1</option>
+                                            <option value="secondTerm">2</option>
+                                            <option value="thirdTerm">3</option>
+                                        </select>
+                                        <label for="remarks">Remarks</label>
+                                        <textarea class="form-control" id="remarksArea" rows="3"></textarea>
+                                        <input class="btn btn-primary" type="submit" value="Submit">
+                                    </form>
+                                </div>
 
 
-        <!-- jQuery CDN -->
-         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-         <!-- Bootstrap Js CDN -->
-         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                                <button class="btn btn-primary" data-dismiss="modal" type="button">
+                                    <i class="fa fa-times"></i>
+                                    Cancel</button>
+        </div>
+    </div>
+</div>
 
-         <script type="text/javascript">
-             $(document).ready(function () {
-                 $('#sidebarCollapse').on('click', function () {
-                     $('#sidebar').toggleClass('active');
-                 });
-             });
-         </script>
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap Js CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+    <!--NAV BAR TRANSACTION-->
+
+
     </body>
 </html>
