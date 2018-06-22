@@ -17,98 +17,38 @@
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
 
-<script>
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-    animationEnabled: true,
-    theme: "light2",
-    title:{
-        text: "Transaction Reports"
-    },
-    axisX:{
-        valueFormatString: "DD MMM",
-        crosshair: {
-            enabled: true,
-            snapToDataPoint: true
-        }
-    },
-    axisY: {
-        title: "Number of Visits",
-        crosshair: {
-            enabled: true
-        }
-    },
-    toolTip:{
-        shared:true
-    },
-    legend:{
-        cursor:"pointer",
-        verticalAlign: "bottom",
-        horizontalAlign: "left",
-        dockInsidePlotArea: true,
-        itemclick: toogleDataSeries
-    },
-    data: [{
-        type: "line",
-        showInLegend: true,
-        name: "Total Visit",
-        markerType: "square",
-        xValueFormatString: "DD MMM, YYYY",
-        color: "#F08080",
-        dataPoints: [
-            { x: new Date(2017, 0, 3), y: 650 },
-            { x: new Date(2017, 0, 4), y: 700 },
-            { x: new Date(2017, 0, 5), y: 710 },
-            { x: new Date(2017, 0, 6), y: 658 },
-            { x: new Date(2017, 0, 7), y: 734 },
-            { x: new Date(2017, 0, 8), y: 963 },
-            { x: new Date(2017, 0, 9), y: 847 },
-            { x: new Date(2017, 0, 10), y: 853 },
-            { x: new Date(2017, 0, 11), y: 869 },
-            { x: new Date(2017, 0, 12), y: 943 },
-            { x: new Date(2017, 0, 13), y: 970 },
-            { x: new Date(2017, 0, 14), y: 869 },
-            { x: new Date(2017, 0, 15), y: 890 },
-            { x: new Date(2017, 0, 16), y: 930 }
-        ]
-    },
-    {
-        type: "line",
-        showInLegend: true,
-        name: "Unique Visit",
-        lineDashType: "dash",
-        dataPoints: [
-            { x: new Date(2017, 0, 3), y: 510 },
-            { x: new Date(2017, 0, 4), y: 560 },
-            { x: new Date(2017, 0, 5), y: 540 },
-            { x: new Date(2017, 0, 6), y: 558 },
-            { x: new Date(2017, 0, 7), y: 544 },
-            { x: new Date(2017, 0, 8), y: 693 },
-            { x: new Date(2017, 0, 9), y: 657 },
-            { x: new Date(2017, 0, 10), y: 663 },
-            { x: new Date(2017, 0, 11), y: 639 },
-            { x: new Date(2017, 0, 12), y: 673 },
-            { x: new Date(2017, 0, 13), y: 660 },
-            { x: new Date(2017, 0, 14), y: 562 },
-            { x: new Date(2017, 0, 15), y: 643 },
-            { x: new Date(2017, 0, 16), y: 570 }
-        ]
-    }]
-});
-chart.render();
-
-function toogleDataSeries(e){
-    if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-        e.dataSeries.visible = false;
-    } else{
-        e.dataSeries.visible = true;
-    }
-    chart.render();
+<style>
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
 }
 
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
 }
-</script>
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+</style>
     </head>
     <body>
 
@@ -116,167 +56,60 @@ function toogleDataSeries(e){
             <?php include("navBar.php"); ?>
 
             <!-- Page Content Holder -->
-            <div id="content">
+            <div id="content" style="width:100%;">
+              <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Reference ID.." title="Type in a name">
+              <table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
+                <thead>
+                  <th style="text-align:center;">Reference ID</th>
+                  <th style="text-align:center;">Type ID</th>
+                  <th style="text-align:center;">Amount</th>
+                  <th style="text-align:center;">Term</th>
+                  <th style="text-align:center;">SY</th>
+                  <th style="text-align:center;">Remarks</th>
+                  <th style="text-align:center;">Date</th>
+                </thead>
+                  <tbody>
+                    <?php
+                    include('dbcon.php');
+                      $quser=mysqli_query($conn,"select * from `transactions`");
+                      while($urow=mysqli_fetch_array($quser)){
+                        ?>
+                          <tr>
+                            <td style="text-align:center;"><?php echo $urow['ref_id']; ?></td>
+                            <td style="text-align:center;"><?php echo $urow['type_id']; ?></td>
+                            <td style="text-align:center;"><?php echo $urow['amount']; ?></td>
+                            <td style="text-align:center;"><?php echo $urow['term']; ?></td>
+                            <td style="text-align:center;"><?php echo $urow['sy']; ?></td>
+                            <td style="text-align:center;"><?php echo $urow['remarks']; ?></td>
+                            <td style="text-align:center;"><?php echo $urow['date_added']; ?></td>
+                          </tr>
+                        <?php
+                      }
+                    ?>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th style="text-align:center;">Reference ID</th>
+                      <th style="text-align:center;">Type ID</th>
+                      <th style="text-align:center;">Amount</th>
+                      <th style="text-align:center;">Term</th>
+                      <th style="text-align:center;">SY</th>
+                      <th style="text-align:center;">Remarks</th>
+                      <th style="text-align:center;">Date</th>
+                    </tr>
+                  </tfoot>
+              </table>
 
-
-<div id="chartContainer" style="height: 300px; width: 70%; margin: auto;"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<div class="limiter">
-        <div class="container-table100">
-            <div class="wrap-table100">
-                    <div class="table">
-
-                        <div class="row header">
-                            <div class="cell">
-                                Full Name
-                            </div>
-                            <div class="cell">
-                                Age
-                            </div>
-                            <div class="cell">
-                                Job Title
-                            </div>
-                            <div class="cell">
-                                Location
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell" data-title="Full Name">
-                                Vincent Williamson
-                            </div>
-                            <div class="cell" data-title="Age">
-                                31
-                            </div>
-                            <div class="cell" data-title="Job Title">
-                                iOS Developer
-                            </div>
-                            <div class="cell" data-title="Location">
-                                Washington
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell" data-title="Full Name">
-                                Joseph Smith
-                            </div>
-                            <div class="cell" data-title="Age">
-                                27
-                            </div>
-                            <div class="cell" data-title="Job Title">
-                                Project Manager
-                            </div>
-                            <div class="cell" data-title="Location">
-                                Somerville, MA
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell" data-title="Full Name">
-                                Justin Black
-                            </div>
-                            <div class="cell" data-title="Age">
-                                26
-                            </div>
-                            <div class="cell" data-title="Job Title">
-                                Front-End Developer
-                            </div>
-                            <div class="cell" data-title="Location">
-                                Los Angeles
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell" data-title="Full Name">
-                                Sean Guzman
-                            </div>
-                            <div class="cell" data-title="Age">
-                                25
-                            </div>
-                            <div class="cell" data-title="Job Title">
-                                Web Designer
-                            </div>
-                            <div class="cell" data-title="Location">
-                                San Francisco
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell" data-title="Full Name">
-                                Keith Carter
-                            </div>
-                            <div class="cell" data-title="Age">
-                                20
-                            </div>
-                            <div class="cell" data-title="Job Title">
-                                Graphic Designer
-                            </div>
-                            <div class="cell" data-title="Location">
-                                New York, NY
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell" data-title="Full Name">
-                                Austin Medina
-                            </div>
-                            <div class="cell" data-title="Age">
-                                32
-                            </div>
-                            <div class="cell" data-title="Job Title">
-                                Photographer
-                            </div>
-                            <div class="cell" data-title="Location">
-                                New York
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell" data-title="Full Name">
-                                Vincent Williamson
-                            </div>
-                            <div class="cell" data-title="Age">
-                                31
-                            </div>
-                            <div class="cell" data-title="Job Title">
-                                iOS Developer
-                            </div>
-                            <div class="cell" data-title="Location">
-                                Washington
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="cell" data-title="Full Name">
-                                Joseph Smith
-                            </div>
-                            <div class="cell" data-title="Age">
-                                27
-                            </div>
-                            <div class="cell" data-title="Job Title">
-                                Project Manager
-                            </div>
-                            <div class="cell" data-title="Location">
-                                Somerville, MA
-                            </div>
-                        </div>
-
-                    </div>
-            </div>
-        </div>
-    </div>
-
-    <?php
-    include('modal.php');
-    ?>
-            </div>
-
-        </div>
+          </div>
 
 
 
 
-
+        <!-- Page level plugin JavaScript-->
+        <script src="/acm/finance/vendor/datatables/jquery.dataTables.js"></script>
+        <script src="/acm/finance/vendor/datatables/dataTables.bootstrap4.js"></script>
+        <!-- Custom scripts for this page-->
+        <script src="/acm/finance/js/sb-admin-datatables.min.js"></script>
         <!-- jQuery CDN -->
          <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
          <!-- Bootstrap Js CDN -->
@@ -289,5 +122,25 @@ function toogleDataSeries(e){
                  });
              });
          </script>
+
+         <script>
+          function myFunction() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+              td = tr[i].getElementsByTagName("td")[0];
+              if (td) {
+                if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                  tr[i].style.display = "";
+                } else {
+                  tr[i].style.display = "none";
+                }
+              }
+            }
+          }
+          </script>
     </body>
 </html>

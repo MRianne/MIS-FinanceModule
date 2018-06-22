@@ -138,9 +138,9 @@
 
         $term = substr($term_slct, -2 ,-1);
         $sy = substr($term_slct, 0, -2);
+        $fsy = trim($sy);
 
-
-        $insert_q = "INSERT INTO transactions (type_id, amount, term, sy, remarks) VALUES ($type_slct, $feeDep, '$term', '$sy', '$remarks')";
+        $insert_q = "INSERT INTO transactions (type_id, amount, term, sy, remarks) VALUES ($type_slct, $feeDep, '$term', '$fsy', '$remarks')";
         /*if ($conn->query($insert_q) === TRUE) {
           echo '<script type="text/javascript">alert("Transaction added")</script>';
           echo '<script>
@@ -193,7 +193,6 @@
                 <label for="type">Term</label>
                 <select id="term" name="term_slct1">
                   <?php
-                  include("dbcon.php");
                   // run query
                   $quser=mysqli_query($conn,"select * from `school_year`");
                   // set variable
@@ -202,7 +201,7 @@
                     $hold = $row['sy'];
                     $charHold = substr($hold, -1);
                     $hold = substr($hold, 0, -1);
-                    ?> <option value=" <?php echo $row['type_id']; ?> "> <?php echo $charHold," Term, SY ",$hold ?> </option> <?php
+                    ?> <option value=" <?php echo $row['sy']; ?> "> <?php echo $charHold," Term, SY ",$hold ?> </option> <?php
                   }
                   ?>
                 </select>
@@ -228,53 +227,56 @@
       </div>
       </div>
       </center>
-
       <?php
-      $mysql_hostname = "localhost";
-      $mysql_user = "root";
-      $mysql_password = "";//CHANGE THIS
-      $mysql_database = "acm";//CHANGE THIS
-      $bd = mysqli_connect($mysql_hostname, $mysql_user, $mysql_password,$mysql_database) or die("Could not connect database");
+      include('dbcon.php');
 
-      error_reporting(E_ERROR | E_PARSE);
-      $conn = new mysqli($mysql_hostname, $mysql_user, $mysql_password,$mysql_database);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+      if (isset($_POST['sub1'])){
+        //  echo "insert";
+        //inserts transactions  only
+        $term_slct1 = $_POST['term_slct1'];
+        //$sy_slct = $_POST['sy_slct'];
+        $remarks = $_POST['remarks'];
+        $feeDep = $_POST['feeDep'];
+
+        $term = substr($term_slct1, -2 ,-1);
+        $sy = substr($term_slct1, 0, -2);
+        $fsy = trim($sy);
+
+        $insert_me = "INSERT INTO expense (amount, term, sy, purpose) VALUES ($feeDep, '$term', '$fsy', '$remarks')";
+        /*if ($conn->query($insert_q) === TRUE) {
+          echo '<script type="text/javascript">alert("Transaction added")</script>';
+          echo '<script>
+            window.history.back();
+          </script>';
+        } else {
+          echo '<script type="text/javascript">alert("Transaction failed)</script>';
+          echo '<script>
+            window.history.back();
+          </script>';
+        }*/
+        if ($conn->query($insert_me) === TRUE) {
+          echo '<script type="text/javascript">alert("Expense added")</script>';
+          echo '<script>
+         window.history.back();
+          </script>';
+        } else {
+          echo '<script type="text/javascript">alert("Expense not added")</script>';
+          echo '<script>
+          window.history.back();
+      </script>';
         }
-                  error_reporting(E_ALL);
-                  ini_set('display_errors', 1);
-                  include("dbcon.php");
-                  if (isset($_POST['searchSub'])){
-                      //searches Student ID
-                      echo "search";
-                  }
+      }
+      ?>
 
-                  if (isset($_POST['sub1'])){
-                     // echo "insert";
-                      //inserts transactions  only
-                  $term_slct = $_POST['term_slct1'];
-                 // $sy_slct = $_POST['sy_slct'];
-                  $remarks = $_POST['remarks'];
-                  //$studid = $_POST['studid'];
-                  $feeDep = $_POST['feeDep'];
 
-                  $term = substr($term_slct, -2 ,-1);
-                  $sy = substr($term_slct, 0, -2);
-                  //insert values
-                  $insert_me = "INSERT INTO expense (amount, term, sy, purpose) VALUES ($feeDep, '$term', '$sy', '$remarks')";
-                  if ($conn->query($insert_me) === TRUE) {
-                    echo '<script type="text/javascript">alert("Expense added")</script>';
-                    echo '<script>
-                      window.history.back();
-                    </script>';
-                  } else {
-                    echo '<script type="text/javascript">alert("Expense failed)</script>';
-                    echo '<script>
-                      window.history.back();
-                    </script>';
-                  }
+      <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+      <!-- Bootstrap Js CDN -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-                  }
-
-                  ?>
+      <script type="text/javascript">
+          $(document).ready(function () {
+              $('#sidebarCollapse').on('click', function () {
+                  $('#sidebar').toggleClass('active');
+              });
+          });
+      </script>

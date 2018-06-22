@@ -37,7 +37,7 @@
                             <p>subtitle</p>
                             <center><canvas style="margin:auto;" id="mycanvas" width="200" height="200"></canvas></center>
                             <p id="transac-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat justo blandit, eleifend nunc eget, tristique enim. </p>
-         <a href="Transaction Reports.html"><button type="button" class="btn btn-info navbar-btn">
+         <a href="Transaction Reports.php"><button type="button" class="btn btn-info navbar-btn">
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span>View Transaction Report</span>
                             </button></a>
@@ -64,7 +64,7 @@
                             <center><canvas style="margin:auto;" id="mycanvas2" width="200" height="200"></canvas></center>
                             <p id="transac-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis volutpat justo blandit, eleifend nunc eget, tristique enim. </p>
         tristique enim. </p>
-         <a href="Expense Reports.html"><button type="button" class="btn btn-info navbar-btn">
+         <a href="Expense Reports.php"><button type="button" class="btn btn-info navbar-btn">
                                 <i class="glyphicon glyphicon-align-left"></i>
                                 <span>View Expense Report</span>
                             </button></a>
@@ -81,7 +81,7 @@
 </div>
 	</div>
    <!--NAV BAR TRANSACTION p-->
-	 
+
 
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
@@ -95,6 +95,25 @@
             });
         });
     </script>
+		<script>
+		 function myFunction() {
+			 var input, filter, table, tr, td, i;
+			 input = document.getElementById("myInput");
+			 filter = input.value.toUpperCase();
+			 table = document.getElementById("myTable");
+			 tr = table.getElementsByTagName("tr");
+			 for (i = 0; i < tr.length; i++) {
+				 td = tr[i].getElementsByTagName("td")[0];
+				 if (td) {
+					 if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+						 tr[i].style.display = "";
+					 } else {
+						 tr[i].style.display = "none";
+					 }
+				 }
+			 }
+		 }
+		 </script>
     <!--NAV BAR TRANSACTION-->
 
 	</body>
