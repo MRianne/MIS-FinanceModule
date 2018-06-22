@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Expense Reports</title>
+        <title>Transaction Reports</title>
 
          <!-- Bootstrap CSS CDN -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,7 +16,7 @@
 <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="../css/util.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
-        
+
 <script>
 window.onload = function () {
 
@@ -24,7 +24,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
     animationEnabled: true,
     theme: "light2",
     title:{
-        text: "Expense Reports"
+        text: "Transaction Reports"
     },
     axisX:{
         valueFormatString: "DD MMM",
@@ -41,7 +41,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
     },
     toolTip:{
         shared:true
-    },  
+    },
     legend:{
         cursor:"pointer",
         verticalAlign: "bottom",
@@ -113,47 +113,7 @@ function toogleDataSeries(e){
     <body>
 
         <div class="wrapper">
-            <!-- Sidebar Holder -->
-            <nav id="sidebar">
-                <div class="sidebar-header"  id="sidebarCollapse">
-                    <h3>Association of Computer Machinery</h3>
-                    <strong><img src="../img/acm.png" width="30" /></strong>
-                </div>
-
-               <ul class="list-unstyled components">
-                    <li>
-                        <a href="../index.html" aria-expanded="false">
-                            <i class="glyphicon glyphicon-home"></i>
-                            Home
-                        </a>
-                      
-                    </li>
-                    
-                    <li>
-                        <a href="Transaction Reports.html">
-                            <i class="glyphicon glyphicon-link"></i>
-                            Transaction Reports
-                        </a>
-                    </li>
-                    <li class="active">
-                        <a href="#">
-                            <i class="glyphicon glyphicon-paperclip"></i>
-                            Expense Reports
-                        </a>
-                    </li>
-                    <li>
-                        <a href="Overall Report.html">
-                            <i class="glyphicon glyphicon-send"></i>
-                            Overall Reports
-                        </a>
-                    </li>
-                </ul>
-  <ul class="list-unstyled CTAs">
-                    <li><a data-toggle="modal" href="#portfolioModal1" class="article">Add Transaction</a></li>
-                    <li><a data-toggle="modal" href="#portfolioModal2" class="article">Add Expense</a></li>
-                </ul>
-              
-            </nav>
+            <?php include("navBar.php"); ?>
 
             <!-- Page Content Holder -->
             <div id="content">
@@ -306,8 +266,11 @@ function toogleDataSeries(e){
         </div>
     </div>
 
-             
+    <?php
+    include('modal.php');
+    ?>
             </div>
+
         </div>
 
 

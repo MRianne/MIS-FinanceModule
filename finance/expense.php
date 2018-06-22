@@ -2,7 +2,7 @@
 $mysql_hostname = "localhost";
 $mysql_user = "root";
 $mysql_password = "";//CHANGE THIS
-$mysql_database = "finance";//CHANGE THIS
+$mysql_database = "acm";//CHANGE THIS
 $bd = mysqli_connect($mysql_hostname, $mysql_user, $mysql_password,$mysql_database) or die("Could not connect database");
 
 error_reporting(E_ERROR | E_PARSE);
@@ -32,8 +32,7 @@ $conn = new mysqli($mysql_hostname, $mysql_user, $mysql_password,$mysql_database
 
 
             //insert values
-            $insert_q = "INSERT INTO expense (ref_id,term,sy,amount,purpose)"
-                . "VALUES ($rnum, $term_slct ,2018, $feeDep ,'$remarks')";
+            $insert_q = "INSERT INTO expense (amount, term, sy, purpose) VALUES ($feeDep, $term_slct ,2018, $feeDep ,'$remarks')";
             $result = mysqli_query($bd,$insert_q);
 
             if($result){
