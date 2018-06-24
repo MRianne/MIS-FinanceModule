@@ -1,52 +1,37 @@
 
   <!-- Sidebar Holder -->
-  <nav id="sidebar">
-    <div class="sidebar-header" id="sidebarCollapse">
-      <h3>Association of Computing Machinery</h3>
-      <h4>Finance Module</h4>
-      <strong>ACM</strong>
-    </div>
+ 
+          <nav class="acm-nav acm-bgcolor">
+          <div class="nav-wrapper">
+            <ul class="right hide-on-med-and-down">
+                <li><a <?php echo ($page == 'overall') ? "class='active'" : ""; ?> href="Overall Report.php">Overall Report</a></li>
+                <li><a <?php echo ($page == 'transaction') ? "class='active'" : ""; ?>  href="Transaction Reports.php">Transaction Report</a></li>
+                <li><a <?php echo ($page == 'expense') ? "class='active'" : ""; ?>  href="Expense Reports.php">Expense Report</a></li>
+              <!-- Dropdown Trigger -->
+              <li><a class="dropdown-button" href="#!" data-target="addDropdown">Add<i class="material-icons right">add</i></a>
 
-    <ul class="list-unstyled components">
-      <li class="active">
-        <a href="/acm/homepage.php" aria-expanded="false">
-          <i class="glyphicon glyphicon-home"></i>Go Back
-        </a>
-      </li>
-      <!--NAV BAR TRANSACTION-->
-      <li>
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-          Transaction </a>
-          <div class="collapse" id="collapseExample">
-            <a data-toggle="modal" href="#portfolioModal1">New Transaction</a>
-            <a data-toggle="modal" href="#portfolioModal2">New Expense</a>
+              </li>
+            </ul>
+
+            <!--mobile nav-->
+
+            <ul id="nav-mobile" class="sidenav">
+                <li><a href="Overall Report.php">Overall Report</a></li>
+                <li><a href="Transaction Reports.php">Transaction Report</a></li>
+                <li><a href="Expense Reports.php">Expense Report</a></li>
+              </ul>
+              <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           </div>
+        </nav>
+             <ul id="addDropdown" class="dropdown-content">
+      <li><a href="Add Transaction.php">Add Transaction</a></li>
+      <li><a href="Add Expense.php">Add Expense</a></li>
+    </ul>
+      
 
-        </li>
-        <!--NAV BAR TRANSACTION-->
 
-        <li>
-          <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
-            Reports</a>
-            <div class="collapse" id="collapseExample1">
-              <a href="Transaction Reports.php">
-                <i class="glyphicon glyphicon-link"></i>
-                Transaction Reports
-              </a>
-              <a href="Expense Reports.php">
-                <i class="glyphicon glyphicon-paperclip"></i>
-                Expense Reports
-              </a>
-              <a href="Overall Report.php">
-                <i class="glyphicon glyphicon-send"></i>
-                Overall Reports
-              </a>
-            </div>
-          </li>
-        </ul>
-      </nav>
 
-      <!--NAV BAR TRANSACTION p-->
+      <!--PLEASE DELETE CODE BELOW IF YOURE THROUGH WITH IT-->
       <center>
       <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true" style="width: 100%; margin: auto;">
         <div class="modal-dialog">

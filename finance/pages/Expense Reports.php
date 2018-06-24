@@ -13,29 +13,7 @@
     
     <div class="wrapper">
        
-      
-        <nav class="acm-nav">
-          <div class="nav-wrapper">
-            <ul class="right hide-on-med-and-down">
-                <li><a href="Overall Report.html">Overall Report</a></li>
-                <li><a href="Transaction Reports.html">Transaction Report</a></li>
-                <li><a class="active" href="Expense Reports.html">Expense Report</a></li>
-              <!-- Dropdown Trigger -->
-              <li><a class="dropdown-button" href="#!" data-target="addDropdown">Add<i class="material-icons right">add</i></a>
-
-              </li>
-            </ul>
-
-            <!--mobile nav-->
-
-            <ul id="nav-mobile" class="sidenav">
-                <li><a href="#">Overall Report</a></li>
-                <li><a href="Transaction Reports.html">Transaction Report</a></li>
-                <li><a href="Expense Reports.html">Expense Report</a></li>
-              </ul>
-              <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          </div>
-        </nav>
+      <?php $page = 'expense'; include('navBar.php'); ?>
 
               <div class="container" style="margin-top: 130px;">
                 <div class="card-panel">
@@ -72,11 +50,6 @@
                 </div>
               </div>
 
-<!--hiddens--->
-   <ul id="addDropdown" class="dropdown-content">
-      <li><a href="#!">Add Transaction</a></li>
-      <li><a href="#!">Add Expense</a></li>
-    </ul>
 <!--scripts--->
     <script>
        (function($){

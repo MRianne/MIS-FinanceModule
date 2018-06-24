@@ -1,6 +1,6 @@
 <html>
 	<head>
-        <title>Add Expense</title>
+        <title>Add Transaction</title>
         <!-- Our Custom CSS -->
 
         <link rel="stylesheet" href="../../css/materialize.css">
@@ -18,49 +18,37 @@
     <div class="wrapper">
        
       
-        <nav class="acm-nav">
-          <div class="nav-wrapper">
-            <ul class="right hide-on-med-and-down">
-                <li><a href="#">Overall Report</a></li>
-                <li><a href="Transaction Reports.html">Transaction Report</a></li>
-                <li><a href="Expense Reports.html">Expense Report</a></li>
-              <!-- Dropdown Trigger -->
-              <li><a class="dropdown-button" href="#!" data-target="addDropdown">Add<i class="material-icons right">add</i></a>
-
-              </li>
-            </ul>
-
-            <!--mobile nav-->
-
-            <ul id="nav-mobile" class="sidenav">
-                <li><a href="#">Overall Report</a></li>
-                <li><a href="Transaction Reports.html">Transaction Report</a></li>
-                <li><a href="Expense Reports.html">Expense Report</a></li>
-              </ul>
-              <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-          </div>
-        </nav>
-
-
+      <?php $page = ''; include('navBar.php'); ?>
 
 
               <div class="container">
-                <div class="card-panel  pos">
+                <div class="card-panel pos">
                   <div class="row">
                     <div class="top-margin">
                       <div class="row">
-                        <div class="col s12">
-                          <h3 class="acm-text">Add Expense</h3>
+                        <div class="col s7">
+                          <h3 class="acm-text">Add Transaction</h3>
                           <h5 class="acm-sub">subtitle here</h5>
                         </div>
                         <div class="input-field col s5" style="margin-top: 40px;">
-                        
+                         <div class="row">
+                           <div class="col s10">
+                             <input placeholder="Search" type="text">
+                           </div>
+                           <div class="col s2">
+                            <a class="btn-flat tooltipped" data-position="bottom" data-tooltip="search"><i class="material-icons left">search</i></a>
+                           </div>
+                         </div> 
                         </div>
                       </div>
                     </div>
                   <form class="col s12" action="/action_page.php">
                     <div class="row">
-                      <div class="col s3 left">
+                      <div class="input-field pos col s6">
+                        <input placeholder="Your student id..." id="StuNum" type="number" class="validate">
+                        <label for="id">Student ID</label>
+                      </div>
+                      <div class="col s3 right">
                         <label>Term</label>
                         <select id="type" name="type" class="styled-select gray semi-square">
                           <option value="registration" disabled selected>Current term</option>
@@ -68,23 +56,36 @@
                           <option value="secondTerm">2</option>
                           <option value="thirdTerm">3</option>
                         </select>
-                      </div>  
-                    </div>
-                    <div class="row">
-                      <div class="input-field pos col s6">
-                        <input type="text" id="rNum" name="rnum" placeholder="Input receipt num.."  class="validate">
-                        <label for="rnum">Receipt Number</label>
                       </div>
-                      
                     </div>
                     <div class="row">
                       <div class="input-field col s6">
-                         <input type="text" id="amt" name="amount" placeholder="Input Amount.." class="validate">
-                        <label for="amount">Amount</label>
+                        <input placeholder="Your first name..." id="fname" type="text" class="validate">
+                        <label for="name">First Name</label>
                       </div>
-                     
+                      <div class="input-field col s6">
+                        <input placeholder="Your last name.." id="lname" type="text" class="validate">
+                        <label for="name">Last Name</label>
+                      </div>
                     </div>
-                   
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <input class="form-control" type="number" id="pfd" name="payment" placeholder="Input payment..">
+                        <label for="amount">Payment Fee deposit</label>
+                      </div>
+                    </div>
+                    <div class="row">
+                       <div class="col s12">
+
+                        <label>Type</label>
+                        <select id="type" name="type">
+                          <option value="registration" disabled selected>Choose your option</option>
+                          <option value="renewal">Renewal</option>
+                          <option value="tshirt">T-Shirt</option>
+                          <option value="oth">Others</option>
+                        </select>
+                      </div>
+                    </div>
                     <div class="row">
                       <div class="input-field col s12">
                         <label for="remarks">Remarks</label>
@@ -103,11 +104,8 @@
                 </div>
               </div>
               </div>
-<!--hiddens--->
-   <ul id="addDropdown" class="dropdown-content">
-      <li><a href="#!">Add Transaction</a></li>
-      <li><a href="#!">Add Expense</a></li>
-    </ul>
+
+
 <!--scripts--->
     <script>
        (function($){
@@ -130,8 +128,9 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>
+    <script src="../../js/init.js"></script>
     <script src="../js/pie.js"></script>
-    
+    <script src="../js/values.js"></script>
 
 	</body>
 </html>

@@ -1,12 +1,8 @@
-(function($){
-  $(function(){
-
-    $('.sidenav').sidenav();
-
-  }); // end of document ready
-})(jQuery); // end of jQuery name space
-
- document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.tooltipped');
-    var instances = M.Tooltip.init(elems, options);
-  });
+jQuery(document).ready(function(){
+    jQuery('.skillbar').each(function(){
+        jQuery(this).find('.skillbar-bar').animate({
+            width:jQuery(this).attr('data-percent')
+        },6000);
+    });
+    $(".dropdown-button").dropdown();
+});

@@ -1,6 +1,6 @@
 $(function(){
   $("#doughnutChart").drawDoughnutChart([
-    { title: "Tokyo",         value : 120,  color: "#B2BB1D" },
+    { title: "Tokyo",         value : 10,  color: "#B2BB1D" },
     { title: "San Francisco", value:  80,   color: "#72CDF4" },
     { title: "New York",      value:  70,   color: "#781D7E" },
     { title: "London",        value : 50,   color: "#EF4035" },
@@ -32,12 +32,12 @@ $(function(){
       PI = Math.PI,
       settings = $.extend({
         segmentShowStroke : true,
-        segmentStrokeColor : "#0C1013",
-        segmentStrokeWidth : 1,
-        baseColor: "rgba(0,0,0,0.5)",
+        segmentStrokeColor : "#e0e0e0",
+        segmentStrokeWidth : 4,
+        baseColor: "rgba(242,242,242,1)",
         baseOffset: 4,
         edgeOffset : 10,//offset from edge of $this
-        percentageInnerCutout : 75,
+        percentageInnerCutout : 65,
         animation : true,
         animationSteps : 90,
         animationEasing : "easeInOutExpo",
