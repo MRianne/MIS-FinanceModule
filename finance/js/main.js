@@ -1,9 +1,3 @@
-
-(function ($) {
-    "use strict";
-
-        
-    
-
-})(jQuery);
-
+ $( document ).ready(function() {
+    $(".dropdown-button").dropdown();
+});

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    Replay Analysis: Users </title>
+  <link href="/favicon.ico?1449137157" type="image/x-icon" rel="icon" />
+  <link href="/favicon.ico?1449137157" type="image/x-icon" rel="shortcut icon" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/materialize.css" media="screen, projection" />
+  <link rel="stylesheet" href="../css/style.css" media="screen, projection" />
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+</head>
+
+<body>
+  <header>
+    <nav class="red lighten-2" role="navigation">
+      <div class="nav-wrapper container">
+        <a class="brand-logo" href="/">M&amp;A</a>
+        <a class="button-collapse" data-activates="nav_mobile" href="javascript:;">
+          <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+          <li>
+            <a class="dropdown-button" data-activates="menu_escrow_accounts" data-beloworigin="true" href="javascript:;">Search Engines<i class="material-icons right">arrow_drop_down</i></a>
+            <ul id="menu_escrow_accounts" class="dropdown-content" style="width: 191px; position: absolute; top: 64px; left: 619.875px; opacity: 1; display: none;">
+              <li><a href="http://bing.com">Bing</a></li>
+              <li><a href="https://microsoft.com">Microsoft</a></li>
+            </ul>
+          </li>
+        </ul>
+        <ul id="nav_mobile" class="side-nav" style="left: -250px;">
+          <li>
+            <a class="dropdown-button" data-activates="mobile_menu_escrow_accounts" data-beloworigin="true" href="javascript:;">Search Engines<i class="material-icons right">arrow_drop_down</i></a>
+            <ul id="mobile_menu_escrow_accounts" class="dropdown-content">
+              <li><a href="http://bing.com">Bing</a></li>
+              <li><a href="https://microsoft.com">Microsoft</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <div class="container">
+      <div class="section">
+        <div class="valign-wrapper" style="flex: 1;">
+          <div class="container valign" style="max-width: 500px;">
+            <form method="post" accept-charset="utf-8" class="col s12" action="/signup">
+              <div style="display:none;">
+                <input type="hidden" name="_method" value="POST" />
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label for="username">Username</label>
+                  <input type="text" name="username" class="validate" required="required" maxlength="255" id="username" /> </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <label for="password">Password</label>
+                  <input type="password" name="password" required="required" id="password" /> </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <select name="role" required="required" id="role">
+                    <option value="0">Player</option>
+                    <option value="1">Coach</option>
+                    <option value="2">Scout</option>
+                  </select>
+                  <label for="role">I'm a </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <button class="btn waves-effect waves-light" style="float: right;" type="submit">Sign Up<i class="material-icons right">send</i></button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="page-footer teal">
+    <div class="footer-copyright">
+      <div class="container">
+        Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+      </div>
+    </div>
+  </footer>
+
+  <!--  Scripts-->
+  <script src="../../js/materialize.js"></script>
+  <script src="../../js/init.js"></script>
+  <script>
+    (function($){
+  $(function(){
+
+    $('.button-collapse').sideNav();
+    $('.parallax').parallax();
+    $('select').material_select();
+  $(".dropdown-button").dropdown();
+  $('.dropdown-button').dropdown();
+    $('.modal-trigger').leanModal();
+
+  }); // end of document ready
+})(jQuery); // end of jQuery name space
+  </script>
+</body>
+
+</html>
