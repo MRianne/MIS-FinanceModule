@@ -66,9 +66,9 @@ function computeOverAll($conn){
 
 function computeExpense($expense = array(), $conn){
 	$data["totalExpense"] = 0;
-	$parts = getTransactionTypes($conn);
+	$data["parts"] = getTransactionTypes($conn);
 
-	foreach ($parts as $p) {
+	foreach ($data["parts"] as $p) {
 		$p["total"] = 0;
 		foreach ($expense as $e) {
 			if($e["type"] == $p["name"]){
@@ -77,6 +77,22 @@ function computeExpense($expense = array(), $conn){
 		}
 	}
 
+	$type = array(
+			'id' => 0,
+			'name' => "not specified",
+			'total' => 0
+	);
+
+	foreach ($expense as $e) {
+		if($e["type"] == "not specified"){
+			$type["total"] += $e["amount"];
+		}
+
+	}
+
+	array_push($data["parts"], $type);
+
+	
 }
 
 function getTransactionTypes($conn){

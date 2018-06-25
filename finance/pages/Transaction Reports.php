@@ -44,11 +44,12 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>
+    <script src="../js/linegraph.js"></script>
     <script src="../js/pie.js"></script>
     <script src="../js/reports.js"></script>
     <script src="../js/Chart.min.js"></script>
     <script src="../js/jquery-3.2.1.min.js"></script>
 
-    
+
     </body>
 </html>

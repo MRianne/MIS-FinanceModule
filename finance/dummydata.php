@@ -17,7 +17,7 @@ if(!$mysqli){
 }
 
 //query to get data from the table
-$query = sprintf("SELECT ref_id, type_id, amount FROM `transactions`");
+$query = sprintf("SELECT ref_id, type_id, amount, date_added FROM `transactions`");
 
 //execute query
 $result = $mysqli->query($query);
@@ -36,3 +36,4 @@ $mysqli->close();
 
 //now print the data
 print json_encode($data);
+?>
