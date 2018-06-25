@@ -5,38 +5,26 @@ $(document).ready(function(){
     success : function(data){
       console.log(data);
 
-      var userid = [];
-      var student_role = [];
-      var admin_role = [];
+      var ref_id = [];
+      var amt = [];
 
       for(var i in data) {
-        userid.push("userid " + data[i].userid);
-        student_role.push(data[i].Student);
-        admin_role.push(data[i].Admin);
+        ref_id.push("ref_id " + data[i].ref_id);
+        amt.push(data[i].amount);
       }
 
       var chartdata = {
-        labels: userid,
+        labels: ref_id,
         datasets: [
           {
-            label: "Student",
+            label: "amount",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(59, 89, 152, 0.75)",
             borderColor: "rgba(59, 89, 152, 1)",
             pointHoverBackgroundColor: "rgba(59, 89, 152, 1)",
             pointHoverBorderColor: "rgba(59, 89, 152, 1)",
-            data: student_role
-          },
-          {
-            label: "Admin",
-            fill: false,
-            lineTension: 0.1,
-            backgroundColor: "rgba(29, 202, 255, 0.75)",
-            borderColor: "rgba(29, 202, 255, 1)",
-            pointHoverBackgroundColor: "rgba(29, 202, 255, 1)",
-            pointHoverBorderColor: "rgba(29, 202, 255, 1)",
-            data: admin_role
+            data: amt
           }
         ]
       };
