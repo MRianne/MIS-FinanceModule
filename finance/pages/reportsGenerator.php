@@ -57,6 +57,28 @@ function expense($conn){
 	return $expenses;
 }
 
+function computeOverAll($conn){
+	$transaction = transaction($conn);
+	$expense = expense($conn);
+
+
+}
+
+function computeExpense($expense = array(), $conn){
+	$data["totalExpense"] = 0;
+	$parts = getTransactionTypes($conn);
+
+	foreach ($parts as $p) {
+		$p["total"] = 0;
+		foreach ($expense as $e) {
+			if($e["type"] == $p["name"]){
+				$p["total"] += $e["amount"];
+			}
+		}
+	}
+
+}
+
 function getTransactionTypes($conn){
 	$sql = "SELECT * FROM type";
 	$results = $conn->query($sql);
