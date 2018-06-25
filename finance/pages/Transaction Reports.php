@@ -15,9 +15,11 @@
 
 
        <?php $page = 'transaction'; include('navBar.php'); ?>
-              <div class="container" style="margin-top: 130px;">
+              <div class="acm-container" style="margin-top: 130px;">
                 <div class="card-panel">
-                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
+                      <canvas id="mycanvas"></canvas>
+                    </div>
                 </div>
                 <div class="card-panel">
                   <table class="acm" id = "transactionTable">
