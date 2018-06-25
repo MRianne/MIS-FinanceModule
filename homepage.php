@@ -14,7 +14,7 @@
 			<img src="assets/acm_icon.png" width="60%" style="margin-top: 2em; margin-bottom: 2em;">
 			<div class="collection">
 				<a href="menu-membership.php" target="acm-menu" class="collection-item"><span class="acm-color">Membership</span></a>
-				<a href="finance/pages/Overall Report.html"  class="collection-item"><span class="acm-color">Finance</span></a>
+				<a href="finance/pages/Overall Report.php"  class="collection-item"><span class="acm-color">Finance</span></a>
 				<a href="menu-events.php" target="acm-menu" class="collection-item"><span class="acm-color">Events</span></a>
 				<a href="menu-accounts.php" target="acm-menu" class="collection-item"><span class="acm-color">Accounts</span></a>
 			</div>

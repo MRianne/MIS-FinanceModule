@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2018 at 02:09 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Jun 24, 2018 at 05:03 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -8304,11 +8304,18 @@ CREATE TABLE `expense` (
   `ref_id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
   `amount` float NOT NULL,
-  `term` tinyint(4) NOT NULL,
-  `sy` int(11) NOT NULL,
+  `term` varchar(4) NOT NULL,
+  `sy` varchar(11) NOT NULL,
   `purpose` varchar(100) NOT NULL,
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `expense`
+--
+
+INSERT INTO `expense` (`ref_id`, `type_id`, `amount`, `term`, `sy`, `purpose`, `date_added`) VALUES
+(9, 0, 150, '1', '20182019', 'wew', '2018-06-22 03:09:50');
 
 -- --------------------------------------------------------
 
@@ -8330,7 +8337,7 @@ CREATE TABLE `members` (
 --
 
 CREATE TABLE `school_year` (
-  `sy` int(11) NOT NULL,
+  `sy` varchar(11) NOT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -8339,7 +8346,7 @@ CREATE TABLE `school_year` (
 --
 
 INSERT INTO `school_year` (`sy`, `status`) VALUES
-(20182019, 1);
+('201820191', 1);
 
 -- --------------------------------------------------------
 
@@ -8351,11 +8358,19 @@ CREATE TABLE `transactions` (
   `ref_id` int(11) NOT NULL,
   `type_id` int(11) NOT NULL,
   `amount` float NOT NULL,
-  `term` tinyint(4) NOT NULL,
-  `sy` int(11) NOT NULL,
+  `term` varchar(4) NOT NULL,
+  `sy` varchar(11) NOT NULL,
   `remarks` varchar(100) NOT NULL,
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`ref_id`, `type_id`, `amount`, `term`, `sy`, `remarks`, `date_added`) VALUES
+(31, 1, 200, '1', '20182019', 'test1', '2018-06-22 03:07:40'),
+(32, 1, 344, '1', '20182019', 'test', '2018-06-22 03:07:34');
 
 -- --------------------------------------------------------
 
@@ -8367,6 +8382,16 @@ CREATE TABLE `type` (
   `type_id` int(11) NOT NULL,
   `type_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `type`
+--
+
+INSERT INTO `type` (`type_id`, `type_name`) VALUES
+(1, 'Registration Fee'),
+(2, 'Renewal'),
+(3, 'T-Shirt'),
+(4, 'Sponsors');
 
 --
 -- Indexes for dumped tables
@@ -8395,6 +8420,12 @@ ALTER TABLE `account_type`
 --
 ALTER TABLE `designation`
   ADD PRIMARY KEY (`p_id`);
+
+--
+-- Indexes for table `expense`
+--
+ALTER TABLE `expense`
+  ADD PRIMARY KEY (`ref_id`);
 
 --
 -- Indexes for table `members`
@@ -8429,31 +8460,31 @@ ALTER TABLE `type`
 --
 ALTER TABLE `academia`
   MODIFY `idno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201702347;
-
 --
 -- AUTO_INCREMENT for table `account_type`
 --
 ALTER TABLE `account_type`
   MODIFY `type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `designation`
 --
 ALTER TABLE `designation`
   MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+--
+-- AUTO_INCREMENT for table `expense`
+--
+ALTER TABLE `expense`
+  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
