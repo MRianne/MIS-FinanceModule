@@ -5,4 +5,22 @@ jQuery(document).ready(function(){
         },6000);
     });
     $(".dropdown-button").dropdown();
+
+
 });
+ $(document).ready(function(){
+    $('select').formSelect();
+  });
+/*
+
+  (function($){
+            $(function(){
+                  $(".dropdown-button").dropdown();
+                $('.button-collapse').sideNav();
+                $('.parallax').parallax();
+                $('select').material_select();
+
+                $('.modal-trigger').leanModal();
+
+            }); // end of document ready
+        })(jQuery); */

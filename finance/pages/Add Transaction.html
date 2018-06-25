@@ -78,7 +78,7 @@
                        <div class="col s12">
 
                         <label>Type</label>
-                         <select id="type">
+                        <select id="type" name="type">
                           <option value="registration" disabled selected>Choose your option</option>
                           <option value="renewal">Renewal</option>
                           <option value="tshirt">T-Shirt</option>
@@ -107,10 +107,28 @@
 
 
 <!--scripts--->
+    <script>
+       (function($){
+            $(function(){
+                  $(".dropdown-button").dropdown();
+                $('.button-collapse').sideNav();
+                $('.parallax').parallax();
+                $('select').material_select();
 
+                $('.modal-trigger').leanModal();
+
+            }); // end of document ready
+        })(jQuery); // end of jQuery name space
+    </script>
+    <script>
+        $(document).ready(function(){
+    $('select').formSelect();
+  });
+    </script>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="../../js/init.js"></script>
     <script src="../../js/materialize.js"></script>
+    <script src="../../js/init.js"></script>
+    <script src="../../js/init.js"></script>
     <script src="../js/pie.js"></script>
     <script src="../js/values.js"></script>
 
