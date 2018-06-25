@@ -18,7 +18,8 @@
               <div class="acm-container" style="margin-top: 130px;">
                 <div class="card-panel">
                     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
-                      <canvas id="mycanvas"></canvas>
+                      <canvas id="mycanvas" style="width: 640px;
+        height: auto;"></canvas>
                     </div>
                 </div>
                 <div class="card-panel">
@@ -57,22 +58,13 @@
 <!--scripts--->
 
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script>
-       (function($){
-            $(function(){
-                  $(".dropdown-button").dropdown();
-                $('.button-collapse').sideNav();
-                $('.parallax').parallax();
-                $('select').material_select();
-
-                $('.modal-trigger').leanModal();
-
-            }); // end of document ready
-        })(jQuery); // end of jQuery name space
-    </script>
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>
     <script src="../js/pie.js"></script>
     <script src="../js/reports.js"></script>
+    <script src="../js/Chart.min.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+
+    
     </body>
 </html>
