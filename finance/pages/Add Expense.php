@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="../../css/materialize.css">
         <link rel="stylesheet" href="../../css/acm.php">
         <link rel="stylesheet" href="../css/finance.css">
-        
+
         <link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
@@ -14,61 +14,74 @@
 
 
     <body>
-    
+
     <div class="wrapper">
-                <?php $page = ''; include('navBar.php'); ?>  
-        
+                <?php $page = ''; include('navBar.php'); ?>
+
               <div class="container">
                 <div class="card-panel  pos">
                   <div class="row">
-                    <div class="top-margin">
+										<div class="top-margin" style="margin:2vw;">
                       <div class="row">
-                        <div class="col s12">
+                        <div class="col s7">
                           <h3 class="acm-text">Add Expense</h3>
-                          <h5 class="acm-sub">subtitle here</h5>
-                        </div>
-                        <div class="input-field col s5" style="margin-top: 40px;">
-                        
+                          <h7 class="acm-sub">Association of Computing Machinery (ACM)</h7>
+													<br>
                         </div>
                       </div>
                     </div>
-                  <form class="col s12" action="/action_page.php">
+										<?php
+										include("getBudget.php");
+										?>
+										<br>
+                  <form action="#" role="form" method="POST">
                     <div class="row">
-                      <div class="col s3 left">
+                      <div class="col s3"></div>
+                      <div class="col s6">
                         <label>Term</label>
-                        <select id="type" name="type" class="styled-select gray semi-square">
-                          <option value="registration" disabled selected>Current term</option>
-                          <option value="firstTerm">1</option>
-                          <option value="secondTerm">2</option>
-                          <option value="thirdTerm">3</option>
-                        </select>
-                      </div>  
+												<select id="term" name="term_slct1" class="styled-select gray semi-square">
+				                  <?php
+				                  // run query
+				                  $quser=mysqli_query($conn,"select * from `school_year`");
+				                  // set variable
+				                  $hold=""; $charHold = "";
+				                  while($row=mysqli_fetch_array($quser)){
+				                    $hold = $row['sy'];
+				                    $charHold = substr($hold, -1);
+				                    $hold = substr($hold, 0, -1);
+				                    ?> <option value=" <?php echo $row['sy']; ?> "> <?php echo $charHold," Term, SY ",$hold ?> </option> <?php
+				                  }
+				                  ?>
+				                </select>
+                      </div>
                     </div>
-                    <div class="row">
+                    <!--<div class="row">
                       <div class="input-field pos col s6">
                         <input type="text" id="rNum" name="rnum" placeholder="Input receipt num.."  class="validate">
                         <label for="rnum">Receipt Number</label>
                       </div>
-                      
-                    </div>
+
+                    </div>-->
                     <div class="row">
+											<div class="col s3"></div>
                       <div class="input-field col s6">
-                         <input type="text" id="amt" name="amount" placeholder="Input Amount.." class="validate">
+												<input class="form-control" type="number" id="amt" name="feeDep" min="0" placeholder="Enter Amount..">
                         <label for="amount">Amount</label>
                       </div>
-                     
+
                     </div>
-                   
+
                     <div class="row">
-                      <div class="input-field col s12">
+											<div class="col s2"></div>
+                      <div class="input-field col s8">
                         <label for="remarks">Remarks</label>
-                        <textarea id="remarksArea" class="materialize-textarea"></textarea>
+                        <textarea id="remarksArea" class="materialize-textarea" name="remarks" rows="3"></textarea>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col s7 right">
-                        
-                        <button class="btn waves-effect waves-light right" type="submit" name="action">Submit
+
+                        <button class="btn waves-effect waves-light right" type="submit" name="sub1">Submit
                         <i class="material-icons right">send</i>
                       </button>
                       </div>
@@ -77,6 +90,7 @@
                 </div>
               </div>
               </div>
+
 
 <!--scripts--->
     <script>
@@ -101,7 +115,7 @@
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>
     <script src="../js/pie.js"></script>
-    
+
 
 	</body>
 </html>

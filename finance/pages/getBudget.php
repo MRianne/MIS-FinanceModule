@@ -27,20 +27,27 @@ while($row=mysqli_fetch_array($quser)){
 
 $termm = $charHold;
 $syy = $hold;
-echo $termm, "***", $syy;
-$result = mysqli_query($conn,"select * from transactions where term='$termm' && sy='$syy'");
+$fsy = trim($syy);
+$result = mysqli_query($conn,"select * from transactions where term='$termm' AND sy='$fsy'");
 while($row = mysqli_fetch_array($result)) {
     $amnt = $row['amount'];
     $sum = $sum+$amnt;
 }
-echo "<h3> Total Budget: ".$sum."</h3>";
+
+echo "<center> <h5> Total Budget: ".$sum."</h5></center>";
 $dif=0;
-$result1 = mysqli_query($conn,"select * from expense where term='$termm' && sy='$syy'");
+$amnt1=0;
+$result1 = mysqli_query($conn,"select * from expense where term='$termm' AND sy='$fsy'");
 while($row1  = mysqli_fetch_array($result1)){
     $amnt1 = $row1['amount'];
     $dif = $dif+$amnt1;
-}
-echo "<h3>Total Expense: ".$dif."</h3>";
-echo "<h3>Remaining Budget: ".($sum - $dif)."</h3>";
+}/*
+if (mysqli_num_rows($result1) > 0) {
+    echo 'User name exists in the table.';
+} else {
+    echo 'User name does not exist in the table.';
+}*/
+echo "<center> <h5>Total Expense: ".$dif."</h5> </center>";
+echo "<center> <h5>Remaining Budget: ".($sum - $dif)."</h5> </center>";
 
 ?>
