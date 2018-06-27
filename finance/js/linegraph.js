@@ -5,29 +5,29 @@ $.post("../dummydata.php",
     var arr = [];
     var date = [];
 
-    for(var i in data) {
-      if(!date.includes(data[i].date_added))
-        date.push(data[i].date_added);
-      if(arr.length > 0 && arr.some( function(a){ return a["type"] == data[i].type_id;})
-          && arr.some( function(a){ return a["date"] == data[i].date_added;})) {
+    for(var i in data["rows"]) {
+      if(!date.includes(data["rows"][i].date_added))
+        date.push(data["rows"][i].date_added);
+
+      if(arr.length > 0 && arr.some( function(a){ return a["type"] == data["rows"][i].type_id;})
+          && arr["dates"].some( function(a){ return a["dates"] == data["rows"][i].date_added;})) {
         for(var a in arr) {
-          if(arr[a].type == data[i].type_id){
-            arr[a].amounts += parseInt(data[i].amount);
+          if(arr[a].type == data["rows"][i].type_id){
+            arr[a].amounts += parseInt(data["rows"][i].amount);
             break;
           }
         }
       }
       else {
         var a = {
-          'type' : data[i].type_id,
-          'date' : data[i].date_added,
-          'amounts' : parseInt(data[i].amount)
+          'type' : data["rows"][i].type_id,
+          'dates' : {data["rows"][i].date_added : parseInt(data["rows"][i].amount)}
         }
         arr.push(a);
       }
     }
 
-    console.log(date);
+    console.log(data);
     console.log(arr);
 
     var chartdata = {

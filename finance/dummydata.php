@@ -23,10 +23,15 @@ $query = sprintf("SELECT ref_id, type_id, amount, date_added FROM `transactions`
 $result = $mysqli->query($query);
 
 //loop through the returned data
-$data = array();
+$data["rows"] = array();
 foreach ($result as $row) {
-  $data[] = $row;
+  $d = new DateTime($row['date_added'],new DateTimeZone('Asia/Manila'));
+  $row['date_added'] = $d->format('m d y');
+  $data["rows"][] = $row;
 }
+
+$d = new DateTime('now', new DateTimeZone('Asia/Manila'));
+$data["now"] = $d->format('m d y');
 
 //free memory associated with result
 $result->close();
