@@ -25,13 +25,33 @@ $result = $mysqli->query($query);
 //loop through the returned data
 $data["rows"] = array();
 foreach ($result as $row) {
+
   $d = new DateTime($row['date_added'],new DateTimeZone('Asia/Manila'));
-  $row['date_added'] = $d->format('m d y');
-  $data["rows"][] = $row;
+
+  if(array_key_exists($row["type_id"],$data["rows"])
+      && array_key_exists(date_format($d, "Y-m-d"),$data["rows"][$row["type_id"]])){
+    $data["rows"][$row["type_id"]][date_format($d, "Y-m-d")] += floatval($row["amount"]);
+  }
+  else if(array_key_exists($row["type_id"],$data["rows"])
+      && !array_key_exists(date_format($d, "Y-m-d"),$data["rows"][$row["type_id"]])){
+    $r = array();
+    $data["rows"][$row["type_id"]][date_format($d, "Y-m-d")] = floatval($row["amount"]);
+  }
+  else{
+      $r = array();
+      $r[date_format($d, "Y-m-d")] = floatval($row["amount"]);
+      $data["rows"][$row["type_id"]] = $r;
+  }
 }
 
-$d = new DateTime('now', new DateTimeZone('Asia/Manila'));
-$data["now"] = $d->format('m d y');
+foreach ($data["rows"] as $key => $value) {
+  $d = new DateTime('now', new DateTimeZone('Asia/Manila'));
+  if(!array_key_exists(date_format($d, "Y-m-d"),$data["rows"][$key])){
+    end($data["rows"][$key]);
+    $k = key($data["rows"][$key]);
+    $data["rows"][$key][date_format($d, "Y-m-d")] = floatval($data["rows"][$key][$k]);
+  }
+}
 
 //free memory associated with result
 $result->close();

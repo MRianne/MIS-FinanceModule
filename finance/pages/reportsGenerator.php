@@ -92,7 +92,7 @@ function computeExpense($expense = array(), $conn){
 
 	array_push($data["parts"], $type);
 
-	
+
 }
 
 function getTransactionTypes($conn){
