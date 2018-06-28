@@ -11,11 +11,11 @@
         <link rel="stylesheet" href="../../css/materialize.css">
         <link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- 
+
 
 <script>
 window.onload = function () {
-	
+
 var chart = new CanvasJS.Chart("chartContainer", {
     animationEnabled: true,
     theme: "light2",
@@ -268,7 +268,7 @@ function toogleDataSeries(e){
 
         </div>
 
-    
+
 <!--hiddens--->
    <ul id="addDropdown" class="dropdown-content">
       <li><a href="Add Transaction.html">Add Transaction</a></li>
@@ -277,8 +277,8 @@ function toogleDataSeries(e){
 <!--scripts--->
 
 
-   
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script src="../../js/jquery-3.2.1.min.js"></script>
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>
     <script src="../js/pie.js"></script>

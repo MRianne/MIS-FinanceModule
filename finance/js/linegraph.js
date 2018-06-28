@@ -4,7 +4,7 @@ $.post("../dummydata.php",
 
     var arr = [];
     var date = [];
-    console.log( "note: " + data);
+    console.log( data);
     console.log(arr);
 
     // for(var i in data["rows"]) {
@@ -40,17 +40,7 @@ $.post("../dummydata.php",
           borderColor: "rgba(59, 89, 152, 1)",
           pointHoverBackgroundColor: "rgba(59, 89, 152, 1)",
           pointHoverBorderColor: "rgba(59, 89, 152, 1)",
-          data: arr[0]["amounts"]
-        },
-        {
-          label: "Type  1",
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: "rgba(59, 89, 152, 0.75)",
-          borderColor: "rgba(59, 89, 152, 1)",
-          pointHoverBackgroundColor: "rgba(59, 89, 152, 1)",
-          pointHoverBorderColor: "rgba(59, 89, 152, 1)",
-          data: arr[1]["amounts"]
+          data: data["rows"]["1"]
         }
       ]
     };
