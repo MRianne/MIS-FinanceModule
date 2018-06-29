@@ -1,6 +1,6 @@
 
   <!-- Sidebar Holder -->
- 
+
           <nav class="acm-nav acm-bgcolor">
           <div class="nav-wrapper">
             <ul class="right hide-on-med-and-down">
@@ -27,7 +27,7 @@
       <li><a href="Add Transaction.php">Add Transaction</a></li>
       <li><a href="Add Expense.php">Add Expense</a></li>
     </ul>
-      
+
 
 
 
@@ -123,9 +123,9 @@
 
         $term = substr($term_slct, -2 ,-1);
         $sy = substr($term_slct, 0, -2);
+        $fsy = trim($sy);
 
-
-        $insert_q = "INSERT INTO transactions (type_id, amount, term, sy, remarks) VALUES ($type_slct, $feeDep, '$term', '$sy', '$remarks')";
+        $insert_q = "INSERT INTO transactions (type_id, amount, term, sy, remarks) VALUES ($type_slct, $feeDep, '$term', '$fsy', '$remarks')";
         /*if ($conn->query($insert_q) === TRUE) {
           echo '<script type="text/javascript">alert("Transaction added")</script>';
           echo '<script>
@@ -246,8 +246,9 @@
 
                   $term = substr($term_slct, -2 ,-1);
                   $sy = substr($term_slct, 0, -2);
+                  $fsy = trim($sy);
                   //insert values
-                  $insert_me = "INSERT INTO expense (amount, term, sy, purpose) VALUES ($feeDep, '$term', '$sy', '$remarks')";
+                  $insert_me = "INSERT INTO expense (amount, term, sy, purpose) VALUES ($feeDep, '$term', '$fsy', '$remarks')";
                   if ($conn->query($insert_me) === TRUE) {
                     echo '<script type="text/javascript">alert("Expense added")</script>';
                     echo '<script>
