@@ -17,9 +17,9 @@
        <?php $page = 'transaction'; include('navBar.php'); ?>
               <div class="acm-container" style="margin-top: 130px;">
                 <div class="card-panel">
+                    <h4>Transaction Report</h4>
                     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
-                      <canvas id="mycanvas" style="width: 640px;
-        height: auto;"></canvas>
+                      <canvas id="mycanvas" style="width: 640px; height: 300px;"></canvas>
                     </div>
                 </div>
                 <div class="card-panel">
@@ -46,8 +46,9 @@
     <script src="../../js/init.js"></script>
     <script src="../js/pie.js"></script>
     <script src="../js/reports.js"></script>
-    <script src="../js/linegraph.js"></script>
     <script src="../js/Chart.min.js"></script>
+    <script src="../js/jquery-3.2.1.min.js"></script>
+
 
     </body>
 </html>

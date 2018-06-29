@@ -2,11 +2,6 @@ $.post("../dummydata.php",
 	{},
   function(data){
 
-    var arr = [];
-    var date = [];
-    console.log( data);
-    console.log(arr);
-
     // for(var i in data["rows"]) {
     //   if(!date.includes(data["rows"][i].date_added))
     //     date.push(data["rows"][i].date_added);
@@ -29,6 +24,22 @@ $.post("../dummydata.php",
     //   }
     // }
 
+    var arr1 = [];
+		var arr2 = [];
+    var date = [];
+    console.log(data);
+
+		for(var i in data["rows"]["1"]) {
+			arr1.push(data["rows"]["1"][i]);
+			date.push(i);
+		}
+		for(var i in data["rows"]["2"]) {
+			arr2.push(data["rows"]["2"][i]);
+			if (!date.some( function(a){ return a == i;}))
+				date.push(i);
+		}
+    console.log(arr1);
+
     var chartdata = {
       labels: date,
       datasets: [
@@ -40,7 +51,17 @@ $.post("../dummydata.php",
           borderColor: "rgba(59, 89, 152, 1)",
           pointHoverBackgroundColor: "rgba(59, 89, 152, 1)",
           pointHoverBorderColor: "rgba(59, 89, 152, 1)",
-          data: data["rows"]["1"]
+          data: arr1
+        },
+				{
+          label: "Type  2",
+          fill: false,
+          lineTension: 0.1,
+          backgroundColor: "rgba(59, 89, 152, 1.50)",
+          borderColor: "rgba(59, 89, 152, 2)",
+          pointHoverBackgroundColor: "rgba(59, 89, 152, 2)",
+          pointHoverBorderColor: "rgba(59, 89, 152, 2)",
+          data: arr2
         }
       ]
     };

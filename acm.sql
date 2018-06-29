@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Jun 28, 2018 at 05:50 PM
--- Server version: 10.2.15-MariaDB
--- PHP Version: 7.1.19
+-- Host: 127.0.0.1
+-- Generation Time: Jun 29, 2018 at 06:48 AM
+-- Server version: 10.1.10-MariaDB
+-- PHP Version: 7.0.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `1335054`
+-- Database: `acm`
 --
 
 -- --------------------------------------------------------
@@ -8281,8 +8279,8 @@ CREATE TABLE `announcements` (
   `image` varchar(300) NOT NULL,
   `is_active` tinyint(4) NOT NULL,
   `is_pinned` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -8325,7 +8323,7 @@ CREATE TABLE `expense` (
   `term` tinyint(4) NOT NULL,
   `sy` int(11) NOT NULL,
   `purpose` varchar(100) NOT NULL,
-  `date_added` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -8339,7 +8337,7 @@ CREATE TABLE `group_chat` (
   `from_idno` int(11) NOT NULL,
   `is_deleted` tinyint(4) NOT NULL,
   `message` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -8352,7 +8350,7 @@ CREATE TABLE `members` (
   `idno` int(11) NOT NULL,
   `sy` int(11) NOT NULL,
   `p_id` tinyint(4) NOT NULL,
-  `date_added` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -8376,8 +8374,8 @@ CREATE TABLE `notifications` (
   `type` varchar(30) NOT NULL,
   `is_read` tinyint(4) NOT NULL,
   `is_pushed` tinyint(4) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -8393,7 +8391,7 @@ CREATE TABLE `private_chat` (
   `from_is_deleted` tinyint(4) NOT NULL,
   `to_is_deleted` tinyint(4) NOT NULL,
   `message` varchar(100) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -8427,7 +8425,7 @@ CREATE TABLE `sessions` (
   `access_token` varchar(100) NOT NULL,
   `user_name` int(11) NOT NULL,
   `is_active` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
@@ -8444,8 +8442,18 @@ CREATE TABLE `transactions` (
   `term` tinyint(4) NOT NULL,
   `sy` int(11) NOT NULL,
   `remarks` varchar(100) NOT NULL,
-  `date_added` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`ref_id`, `type_id`, `amount`, `term`, `sy`, `remarks`, `date_added`) VALUES
+(1, 1, 500, 1, 20182019, '', '2018-06-19 15:56:25'),
+(2, 1, 300, 1, 20182019, '', '2018-06-20 15:56:25'),
+(3, 2, 100, 1, 20182019, 'downpayment', '2018-06-22 00:00:00'),
+(4, 1, 500, 1, 20182019, '', '2018-06-25 01:49:00');
 
 -- --------------------------------------------------------
 
@@ -8457,6 +8465,14 @@ CREATE TABLE `type` (
   `type_id` int(11) NOT NULL,
   `type_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `type`
+--
+
+INSERT INTO `type` (`type_id`, `type_name`) VALUES
+(1, 'Registration'),
+(2, 'Membership');
 
 --
 -- Indexes for dumped tables
@@ -8555,68 +8571,56 @@ ALTER TABLE `type`
 --
 ALTER TABLE `academia`
   MODIFY `idno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201702347;
-
 --
 -- AUTO_INCREMENT for table `account_type`
 --
 ALTER TABLE `account_type`
   MODIFY `type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
   MODIFY `a_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `designation`
 --
 ALTER TABLE `designation`
   MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `expense`
 --
 ALTER TABLE `expense`
   MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `group_chat`
 --
 ALTER TABLE `group_chat`
   MODIFY `gc_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
   MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `private_chat`
 --
 ALTER TABLE `private_chat`
   MODIFY `c_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
   MODIFY `s_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT;
-
+  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

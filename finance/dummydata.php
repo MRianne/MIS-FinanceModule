@@ -21,7 +21,7 @@ $query = sprintf("SELECT ref_id, type_id, amount, date_added FROM `transactions`
 
 //execute query
 $result = $mysqli->query($query);
-
+$previous = array();
 //loop through the returned data
 $data["rows"] = array();
 foreach ($result as $row) {
@@ -34,13 +34,20 @@ foreach ($result as $row) {
   }
   else if(array_key_exists($row["type_id"],$data["rows"])
       && !array_key_exists(date_format($d, "Y-m-d"),$data["rows"][$row["type_id"]])){
-    $r = array();
-    $data["rows"][$row["type_id"]][date_format($d, "Y-m-d")] = floatval($row["amount"]);
+
+    if(array_key_exists($row["type_id"], $previous))
+      $data["rows"][$row["type_id"]][date_format($d, "Y-m-d")] =
+        $data["rows"][$row["type_id"]][$previous[$row["type_id"]]] + floatval($row["amount"]);
+    else
+      $data["rows"][$row["type_id"]][date_format($d, "Y-m-d")] = floatval($row["amount"]);
+
+      $previous[$row["type_id"]] = date_format($d, "Y-m-d");
   }
   else{
       $r = array();
       $r[date_format($d, "Y-m-d")] = floatval($row["amount"]);
       $data["rows"][$row["type_id"]] = $r;
+      $previous[$row["type_id"]] = date_format($d, "Y-m-d");
   }
 }
 

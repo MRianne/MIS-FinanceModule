@@ -4,31 +4,53 @@ if($("#transactionTable").length > 0){
 		report: "transaction",
 	},
   function(data){
-      console.log(data);
+    console.log(data);
+    var r = 180;
+    var g = 255;
+    var b = 160;
+    var dataCharts = [];
+    var date = [];
 
-  // var chartdata = {
-  //       labels: ref_id,
-  //       datasets: [
-  //         {
-  //           label: "amount",
-  //           fill: false,
-  //           lineTension: 0.1,
-  //           backgroundColor: "rgba(59, 89, 152, 0.75)",
-  //           borderColor: "rgba(59, 89, 152, 1)",
-  //           pointHoverBackgroundColor: "rgba(59, 89, 152, 1)",
-  //           pointHoverBorderColor: "rgba(59, 89, 152, 1)",
-  //           data: amt
-  //         }
-  //       ]
-  //     };
-  //       var ctx = $("#mycanvas");
-  //
-  //     var LineGraph = new Chart(ctx, {
-  //       type: 'line',
-  //       data: chartdata
-  //   });
+    $.each(data["type"], function( index, value ) {
+      if(data["chart"][value["name"]] != null){
 
-    $.each(data, function( index, value ) {
+        var arr = [];
+        for(var i in data["chart"][value["name"]]) {
+    			arr.push(data["chart"][value["name"]][i]);
+          if(!date.includes(i))
+    			   date.push(i);
+    		}
+
+        var d = [];
+        d["label"] = value["name"];
+        d["fill"] = false;
+        d["lineTension"] = 0.1;
+        d["backgroundColor"] = "rgb(" + r + "," + g + "," + b + ")";
+        d["borderColor"] = "rgb(" + r + "," + g + "," + b + ")";
+        d["pointHoverBorderColor"] = "rgb(" + r + "," + g + "," + (b - 0.5) + ")";
+        d["pointHoverBackgroundColor"] = "rgb(" + r + "," + g + "," + b + ")";
+        d["data"] = arr;
+        dataCharts.push(d);
+
+        r = r - 30;
+        g = g - 40;
+        b = b - 20;
+      }
+    });
+
+    var chartdata = {
+      labels: date,
+      datasets: dataCharts
+    };
+
+    var ctx = $("#mycanvas");
+
+    var LineGraph = new Chart(ctx, {
+      type: 'line',
+      data: chartdata
+    });
+
+    $.each(data["table"], function( index, value ) {
       var row = '<tr>';
       row += '<td>' + value["id"] + '</td>';
       row += '<td>' + value["sy"].substr(2, 2) + value["sy"].substr(6) + ' - ' + value["term"] + '</td>';
