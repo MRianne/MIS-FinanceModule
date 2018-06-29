@@ -169,6 +169,11 @@ table.acm > thead > tr > th{
   width: 100%;
 }
 
+.small-pad {
+  padding: 222px;
+  position: relative;
+}
+
 @media only screen and (min-width: 601px) {
   .acm-container {
     width: 95%;
@@ -180,6 +185,8 @@ table.acm > thead > tr > th{
     width: 90%;
   }
 }
+
+
 
 
 /*----pie chart---*/

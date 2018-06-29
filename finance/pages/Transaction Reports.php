@@ -15,9 +15,45 @@
 
 
        <?php $page = 'transaction'; include('navBar.php'); ?>
-              <div class="acm-container" style="margin-top: 130px;">
+              <div class="acm-container" style="margin-top: 100px;">
+                <div class="row">
+                  <div class="col s4 left">
+                    <div class="center" >
+                  <div class="row">
+                    <div class="col s7">
+                      <select id="type" name="type">
+                          <option value="registration" disabled selected>School Year</option>
+                          <option value="schoolYear">20172018</option>
+                        </select>
+                    </div>
+                    <div class="col s4">
+                      <select id="type" name="type">
+                          <option value="registration" disabled selected>Term</option>
+                          <option value="firstTerm">1</option>
+                          <option value="secondTerm">2</option>
+                          <option value="thirdTerm">3</option>
+                        </select>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+
+                   <div class="col s6 right">
+                     
+                    <div class="col s3 right">
+                      <button class="btn waves-effect waves-light " type="submit" name="action">search
+                        <i class="material-icons right">search</i>
+                      </button>
+                    </div>
+                    <div class="col s7 right">
+                     <input placeholder="Search" type="text">
+                    </div>
+                        
+                  </div>
+
+                </div>
                 <div class="card-panel">
-                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
+                    <div id="container" style="min-width: 310px; height: 400px;">
                       <canvas id="mycanvas" style="width: 640px;
         height: auto;"></canvas>
                     </div>
@@ -46,8 +82,7 @@
     <script src="../../js/init.js"></script>
     <script src="../js/pie.js"></script>
     <script src="../js/reports.js"></script>
-    <script src="../js/Chart.min.js"></script>
-    <script src="../js/jquery-3.2.1.min.js"></script>
+    
 
     
     </body>

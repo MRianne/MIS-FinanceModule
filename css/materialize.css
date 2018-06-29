@@ -4767,6 +4767,10 @@ small {
   position: relative;
 }
 
+.card.smaller{
+    position: relative;
+    padding: 4px;
+}
 .card.small .card-image, .card.medium .card-image, .card.large .card-image {
   max-height: 60%;
   overflow: hidden;

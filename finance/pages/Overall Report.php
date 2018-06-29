@@ -16,8 +16,6 @@
     <body >
     
     <div class="wrapper">
-       
-    
             <?php $page = 'overall'; include('navBar.php'); ?>
               <div class="acm-container">
 
