@@ -57,9 +57,37 @@ function transactionASC($conn){
 	return $transactions;
 }
 
-function expense($conn){
+function expenseDESC($conn){
 	$types = getTransactionTypes($conn);
 	$sql = "SELECT * FROM expense ORDER BY date_added DESC";
+	$results = $conn->query($sql);
+	$expenses = array();
+	while($result = $results->fetch_assoc()){
+		$row = array(
+			'id' => $result['ref_id'],
+			'type' => "not specified",
+			'amount' => $result['amount'],
+			'term' => $result['term'],
+			'sy' => $result['sy'],
+			'purpose' => $result['purpose'],
+			'date_added' => $result['date_added']
+			);
+
+		foreach ($types as $value) {
+			if($value["id"] == $result['type_id']){
+				$row["type"] = $value["name"];
+				break;
+			}
+		}
+
+		array_push($expenses, $row);
+	}
+	return $expenses;
+}
+
+function expenseASC($conn){
+	$types = getTransactionTypes($conn);
+	$sql = "SELECT * FROM expense ORDER BY date_added ASC";
 	$results = $conn->query($sql);
 	$expenses = array();
 	while($result = $results->fetch_assoc()){
@@ -110,7 +138,7 @@ function computeTransactions($transactions = array(), $conn){
 	  }
 	  else{
 			if($previousDate != ""){
-				$data = _fillTransactionRow($data,$previousDate);
+				$data = _fillRow($data,$previousDate);
 	      $data[$row["type"]][date_format($d, "Y-m-d")] =
 	        $data[$row["type"]][$previousDate] + floatval($row["amount"]);
 			}
@@ -122,12 +150,15 @@ function computeTransactions($transactions = array(), $conn){
 	}
 
 	if($previousDate != ""){
-		$data = _fillTransactionRow($data,$previousDate);
+		$data = _fillRow($data,$previousDate);
 	}
 
 	foreach ($data as $key => $value) {
 	  $d = new DateTime('now', new DateTimeZone('Asia/Manila'));
-	  if(!array_key_exists(date_format($d, "Y-m-d"),$data[$key])){
+		if(empty($data[$key])){
+			$data[$key][date_format($d, "Y-m-d")] = 0;
+		}
+	  else if(!array_key_exists(date_format($d, "Y-m-d"),$data[$key])){
 	    end($data[$key]);
 	    $k = key($data[$key]);
 	    $data[$key][date_format($d, "Y-m-d")] = floatval($data[$key][$k]);
@@ -137,7 +168,55 @@ function computeTransactions($transactions = array(), $conn){
 	return $data;
 }
 
-function _fillTransactionRow($data, $date){
+function computeExpenses($expenses = array(), $conn){
+	$types = getTransactionTypes($conn);
+	$data = array();
+	$previousDate = "";
+
+	foreach ($types as $key => $value) {
+		$data[$value["name"]]  =array();
+	}
+	foreach ($expenses as $row) {
+
+	  $d = new DateTime($row['date_added'],new DateTimeZone('Asia/Manila'));
+
+	  if(array_key_exists($row["type"],$data)
+	      && array_key_exists(date_format($d, "Y-m-d"),$data[$row["type"]])){
+	    $data[$row["type"]][date_format($d, "Y-m-d")] += floatval($row["amount"]);
+	  }
+	  else{
+			if($previousDate != ""){
+				$data = _fillRow($data,$previousDate);
+	      $data[$row["type"]][date_format($d, "Y-m-d")] =
+	        $data[$row["type"]][$previousDate] + floatval($row["amount"]);
+			}
+	    else{
+				$data[$row["type"]][date_format($d, "Y-m-d")] = floatval($row["amount"]);
+			}
+			$previousDate = date_format($d, "Y-m-d");
+	  }
+	}
+
+	if($previousDate != ""){
+		$data = _fillRow($data,$previousDate);
+	}
+
+	foreach ($data as $key => $value) {
+	  $d = new DateTime('now', new DateTimeZone('Asia/Manila'));
+		if(empty($data[$key])){
+			$data[$key][date_format($d, "Y-m-d")] = 0;
+		}
+	  else if(!array_key_exists(date_format($d, "Y-m-d"),$data[$key])){
+	    end($data[$key]);
+	    $k = key($data[$key]);
+	    $data[$key][date_format($d, "Y-m-d")] = floatval($data[$key][$k]);
+	  }
+	}
+
+	return $data;
+}
+
+function _fillRow($data, $date){
 	foreach($data as $key => $row){
 		if(empty($data[$key])){
 			$data[$key][$date] = 0;
@@ -171,7 +250,10 @@ if(isset($_POST['report']) && $_POST['report'] == "transaction"){
 	echo json_encode($data);
 }
 else if(isset($_POST['report']) && $_POST['report'] == "expense"){
-	echo json_encode(expense($conn));
+	$data["table"] = expenseDESC($conn);
+	$data["chart"] = computeExpenses(expenseASC($conn), $conn);
+	$data["type"] = getTransactionTypes($conn);
+	echo json_encode($data);
 }
 
 ?>

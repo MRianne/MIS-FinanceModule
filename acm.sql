@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2018 at 06:48 AM
+-- Generation Time: Jun 29, 2018 at 07:19 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.4
 
@@ -8326,6 +8326,16 @@ CREATE TABLE `expense` (
   `date_added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `expense`
+--
+
+INSERT INTO `expense` (`ref_id`, `type_id`, `amount`, `term`, `sy`, `purpose`, `date_added`) VALUES
+(1, 1, 200, 1, 20182019, 'print flyers', '2018-06-18 05:07:07'),
+(2, 1, 600, 1, 20182019, 'downpayment for id lace', '2018-06-25 05:07:07'),
+(3, 2, 50, 1, 20182019, 'special paper for membership id', '2018-06-20 05:08:44'),
+(4, 2, 500, 1, 20182019, 'freebies', '2018-06-27 05:08:44');
+
 -- --------------------------------------------------------
 
 --
@@ -8590,7 +8600,7 @@ ALTER TABLE `designation`
 -- AUTO_INCREMENT for table `expense`
 --
 ALTER TABLE `expense`
-  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `group_chat`
 --

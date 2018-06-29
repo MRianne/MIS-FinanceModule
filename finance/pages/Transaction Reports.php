@@ -19,7 +19,7 @@
                 <div class="card-panel">
                     <h4>Transaction Report</h4>
                     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
-                      <canvas id="mycanvas" style="width: 640px; height: 300px;"></canvas>
+                      <canvas id="transactionLC" style="width: 640px; height: 300px;"></canvas>
                     </div>
                 </div>
                 <div class="card-panel">

@@ -17,7 +17,10 @@
 
               <div class="container" style="margin-top: 130px;">
                 <div class="card-panel">
-                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    <h4>Expense Report</h4>
+                    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto">
+                      <canvas id="expenseLC" style="width: 640px; height: 400px;"></canvas>
+                    </div>
                 </div>
                 <div class="card-panel">
                 <table class="acm" id = "expenseTable">
@@ -39,7 +42,7 @@
 
 <!--scripts--->
 
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
     <script>
        (function($){
             $(function(){
@@ -56,6 +59,7 @@
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>
     <script src="../js/pie.js"></script>
+    <script src="../js/Chart.min.js"></script>
     <script src="../js/reports.js"></script>
 
     </body>
