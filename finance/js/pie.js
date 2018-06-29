@@ -10,6 +10,7 @@ $(function(){
     { title: "Berlin",        value : 20,   color: "#005596" }*/
   ]);
 });
+
 /*!
  * jquery.drawDoughnutChart.js
  * Version: 0.4.1(Beta)
