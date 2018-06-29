@@ -43,17 +43,23 @@ echo 'User name exists in the table.';
 echo 'User name does not exist in the table.';
 }*/
 ?>
-<div style="overflow-x:auto;">
-  <table style="width:100%">
-    <th>
-      <td> <b>Total Budget</b> </td>
-      <td> <b>Total Expense</b> </td>
-      <td> <b>Remaining Budget</b> </td>
-    </th>
+<div class="card-panel pos" style="overflow-x:auto;">
+  <table class="acm" style="width:100%">
+    <thead>
+      <tr>
+        <th>Total Budget</th>
+        <th>Total Expense</th>
+        <th>Remaining Budget</th>
+      </tr>
+    </thead>
     <tr>
+      
       <td> <?php echo $sum; ?> </td>
+
       <td> <?php echo $dif; ?> </td>
       <td> <?php echo ($sum - $dif); ?> </td>
+      
+        <td> </td>
     </tr>
   </table>
 </div>

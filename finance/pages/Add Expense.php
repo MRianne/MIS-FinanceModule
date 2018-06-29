@@ -18,26 +18,22 @@
     <div class="wrapper">
                 <?php $page = ''; include('navBar.php'); ?>
 
-              <div class="container">
-                <div class="card-panel  pos">
+              <div class="acm-container"  style="margin-top:8vw;">
+                <?php
+                    include("getBudget.php");
+                    ?>
+                <div class="card-panel">
                   <div class="row">
-										<div class="top-margin" style="margin:2vw;">
                       <div class="row">
                         <div class="col s7">
                           <h3 class="acm-text">Add Expense</h3>
                           <h7 class="acm-sub">Association of Computing Machinery (ACM)</h7>
 													<br>
-                        </div>
                       </div>
                     </div>
-										<?php
-										include("getBudget.php");
-										?>
-										<br>
                   <form action="#" role="form" method="POST">
                     <div class="row">
-                      <div class="col s3"></div>
-                      <div class="col s6">
+                      <div class="col s12">
                         <label>Term</label>
 												<select id="term" name="term_slct1" class="styled-select gray semi-square">
 				                  <?php
@@ -53,8 +49,7 @@
                       </div>
                     </div>
                     <div class="row">
-											<div class="col s3"></div>
-                      <div class="input-field col s6">
+                      <div class="input-field col s12">
 												<input class="form-control" type="number" id="amt" name="feeDep" min="0" placeholder="Enter Amount..">
                         <label for="amount">Amount</label>
                       </div>
@@ -62,8 +57,7 @@
                     </div>
 
                     <div class="row">
-											<div class="col s2"></div>
-                      <div class="input-field col s8">
+                      <div class="input-field col s12">
                         <label for="remarks">Remarks</label>
                         <textarea id="remarksArea" class="materialize-textarea" name="remarks" rows="3"></textarea>
                       </div>
