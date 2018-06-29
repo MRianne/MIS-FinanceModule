@@ -38,7 +38,7 @@
                   </div>
                 </div>
 
-                   <div class="col s6 right">
+                   <div class="col s6 right" >
                      
                     <div class="col s3 right">
                       <button class="btn waves-effect waves-light " type="submit" name="action">search

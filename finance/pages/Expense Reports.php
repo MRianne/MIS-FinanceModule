@@ -16,8 +16,8 @@
       <?php $page = 'expense'; include('navBar.php'); ?>
 
               <div class="acm-container" style="margin-top: 130px;">
-                <div class="row">
-                  <div class="col s4 left">
+                <div class="row pos">
+                  <div class="col s4 left under">
                     <div class="center" >
                   <div class="row">
                     <div class="col s7">

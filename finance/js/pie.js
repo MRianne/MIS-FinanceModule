@@ -11,6 +11,8 @@ $(function(){
   ]);
 });
 
+
+
 /*!
  * jquery.drawDoughnutChart.js
  * Version: 0.4.1(Beta)
@@ -21,6 +23,11 @@ $(function(){
  * Released under the MIT license.
  * 
  */
+;(function($, undefined){
+  $.fn.drawTheGraph = function(data,options){
+    var $this = this,
+  }
+}) 
 ;(function($, undefined) {
   $.fn.drawDoughnutChart = function(data, options) {
     var $this = this,
@@ -249,6 +256,15 @@ $(function(){
       if (isNumber(minValue) && valueToCap < minValue) return minValue;
       return valueToCap;
     }
+
+    function BlockID() {
+    return {
+            "s":"Images/Block_01.png"
+            ,"g":"Images/Block_02.png"
+            ,"C":"Images/Block_03.png"
+            ,"d":"Images/Block_04.png"
+    };
+}
     return $this;
   };
 })(jQuery);

@@ -49,7 +49,7 @@
 												<input class="validate" type="number" id="StuNum" name="studid" placeholder="Enter Student ID...">
                         <label for="id">Student ID</label>
                       </div>
-                      <div class="col s6">
+                      <div class="pos col s6">
                         <label>Term</label>
 												<select id="term" name="term_slct">
 					                <?php

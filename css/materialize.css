@@ -4768,8 +4768,7 @@ small {
 }
 
 .card.smaller{
-    position: relative;
-    padding: 4px;
+    padding: 30px;
 }
 .card.small .card-image, .card.medium .card-image, .card.large .card-image {
   max-height: 60%;
