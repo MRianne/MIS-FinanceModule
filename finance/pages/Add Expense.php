@@ -46,22 +46,12 @@
 				                  // set variable
 				                  $hold=""; $charHold = "";
 				                  while($row=mysqli_fetch_array($quser)){
-				                    $hold = $row['sy'];
-				                    $charHold = substr($hold, -1);
-				                    $hold = substr($hold, 0, -1);
-				                    ?> <option value=" <?php echo $row['sy']; ?> "> <?php echo $charHold," Term, SY ",$hold ?> </option> <?php
+				                    ?> <option value=" <?php echo $row['term'],",",$row['sy']; ?> "> <?php echo $row['term']," Term, SY ",$row['sy'] ?> </option> <?php
 				                  }
 				                  ?>
 				                </select>
                       </div>
                     </div>
-                    <!--<div class="row">
-                      <div class="input-field pos col s6">
-                        <input type="text" id="rNum" name="rnum" placeholder="Input receipt num.."  class="validate">
-                        <label for="rnum">Receipt Number</label>
-                      </div>
-
-                    </div>-->
                     <div class="row">
 											<div class="col s3"></div>
                       <div class="input-field col s6">
