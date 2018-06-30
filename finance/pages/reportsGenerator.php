@@ -31,7 +31,15 @@ function transactionDESC($conn){
 
 function transactionASC($conn){
 	$types = getTransactionTypes($conn);
-	$sql = "SELECT * FROM transactions ORDER BY date_added ASC";
+	$quser=mysqli_query($conn,"select * from `school_year` where status=1");
+	// set variable
+	$term=$sy=0;
+	while($row=mysqli_fetch_array($quser)){
+	  $term = $row['term'];
+	  $sy = $row['sy'];
+	}
+
+	$sql = "SELECT * FROM transactions WHERE term = $term and sy = $sy ORDER BY date_added ASC";
 	$results = $conn->query($sql);
 	$transactions = array();
 	while($result = $results->fetch_assoc()){
@@ -138,6 +146,10 @@ function computeOverAll($conn){
 				array_key_exists($value["type"],$data["pie"]["transaction"])){
 			$data["pie"]["expense"][$value["type"]] += floatval($value["amount"]);
 			$data["pie"]["transaction"][$value["type"]] -= floatval($value["amount"]);
+
+			if($data["pie"]["transaction"][$value["type"]] < 0){
+				$data["pie"] = accounting($data["pie"], abs($data["pie"]["transaction"][$value["type"]] ));
+			}
 		}
 		else if(array_key_exists($value["type"],$data["pie"]["expense"]) &&
 							!array_key_exists($value["type"],$data["pie"]["transaction"])){
@@ -154,6 +166,61 @@ function computeOverAll($conn){
 	return $data;
 }
 
+function computeTransactionsPie($conn){
+	$transaction = transactionASC($conn);
+	$type = getTransactionTypes($conn);
+
+	$data["pie"] = initializePieType($type);
+	$data["total"] = 0;
+
+	foreach ($transaction as $key => $value) {
+		if(array_key_exists($value["type"],$data["pie"])){
+			$data["pie"][$value["type"]] += floatval($value["amount"]);
+		}
+		else{
+			$data["pie"][$value["type"]] = floatval($value["amount"]);
+		}
+
+		$data["total"] += floatval($value["amount"]);
+	}
+
+	return $data;
+}
+
+function computeExpensesPie($conn){
+	$expenses = expenseASC($conn);
+	$type = getTransactionTypes($conn);
+
+	$data["pie"] = initializePieType($type);
+	$data["total"] = 0;
+
+	foreach ($expenses as $key => $value) {
+		if(array_key_exists($value["type"],$data["pie"])){
+			$data["pie"][$value["type"]] += floatval($value["amount"]);
+		}
+		else{
+			$data["pie"][$value["type"]] = floatval($value["amount"]);
+		}
+
+		$data["total"] += floatval($value["amount"]);
+	}
+
+	return $data;
+}
+
+function accounting($data, $amount){
+	foreach ($data["transaction"] as $key => $value) {
+		if($amount > 0 && ($data["transaction"][$key] > $amount)){
+			$data["transaction"][$key] -= $amount;
+			$amount = 0;
+		}
+		else if($amount > 0 && ($data["transaction"][$key] <= $amount)){
+			$amount -= $data["transaction"][$key];
+			$data["transaction"][$key] = 0;
+		}
+	}
+	return $data;
+}
 function initializePieType($type){
 	$data = array();
 	foreach ($type as $value) {
@@ -298,10 +365,14 @@ else if(isset($_POST['report']) && $_POST['report'] == "expense"){
 	$data["type"] = getTransactionTypes($conn);
 	echo json_encode($data);
 }
+else if(isset($_POST['report']) && $_POST['report'] == "overallPie"){
+	echo json_encode(computeOverAll($conn));
+}
 else if(isset($_POST['report']) && $_POST['report'] == "transactionPie"){
-	$data["table"] = expenseDESC($conn);
-	$data["chart"] = computeOverAll($conn);
-	echo json_encode($data);
+	echo json_encode(computeTransactionsPie($conn));
 }
 
+else if(isset($_POST['report']) && $_POST['report'] == "expensePie"){
+	echo json_encode(computeExpensesPie($conn));
+}
 ?>

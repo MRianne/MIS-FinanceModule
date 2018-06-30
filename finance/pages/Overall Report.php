@@ -16,56 +16,37 @@
     <body >
 
     <div class="wrapper">
-            <?php $page = 'overall'; include('navBar.php'); ?>
-              <div class="acm-container">
+        <?php $page = 'overall'; include('navBar.php'); ?>
+        <div class="acm-container">
 
             <!---overall report--->
                 <div class="row pos top-margin">
                 <div class="row">
-                    <h3 class="acm-text acm-color">Overall report</h3>
-                    <div class="col s5">
+                    <div class="col s4">
                         <div class="card-panel">
-		                    	<div id="overallPie" style="max-width: 100%; " class="chart">
-			                    </div>
+													<h5 class="acm-text acm-color">Overall report</h5>
+		                    	<div id="overallPie" style="max-width: 100%; " class="chart"></div>
 		                    </div>
 	                   </div>
-                </div>
-            </div>
-            <!---end of overall report--->
-
-
-            <!---overall report--->
-                <div class="row pos top-margin">
-                <div class="row">
-                    <h3 class="acm-text acm-color">Transaction report</h3>
-                    <div class="col s5">
+                     <div class="col s4">
                         <div class="card-panel">
-			                    <div id="transactionPie" style="max-width: 100%; " class="chart">
-			                    </div>
-                    	</div>
-                    </div>
-                </div>
-            </div>
-            <!---end of overall report--->
+													 <h5 class="acm-text acm-color">Transaction report</h5>
+	 			                   <div id="transactionPie" style="max-width: 100%; " class="chart"></div>
+                     		</div>
+                     </div>
 
-            <!---overall report--->
-                <div class="row pos top-margin">
-                <div class="row">
-                    <h3 class="acm-text acm-color">Expense report</h3>
-                    <div class="col s5">
-                        <div class="card-panel">
-			                    <div id="expensePie" style="max-width: 100%; " class="chart">
-			                    </div>
-		                    </div>
-                    </div>
+                     <div class="col s4">
+                         <div class="card-panel">
+														<h5 class="acm-text acm-color">Expense report</h5>
+	 			                    <div id="expensePie" style="max-width: 100%; " class="chart"></div>
+ 		                 		 </div>
+                     </div>
                 </div>
             </div>
             <!---end of overall report--->
 
 
-
-
-              </div>
+        </div>
 
 <!--scripts--->
 
@@ -75,10 +56,8 @@
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>
     <script src="../js/overallPie.js"></script>
-		<script src="../js/transactionPieSettings.js"></script>
-    <script src="../js/transactionPieValue.js"></script>
-    <script src="../js/expensePieSettings.js"></script>
-    <script src="../js/expensePieValue.js"></script>
+    <script src="../js/transactionPie.js"></script>
+    <script src="../js/expensePie.js"></script>
 	</body>
 </html>
 

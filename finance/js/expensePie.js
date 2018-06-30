@@ -1,17 +1,21 @@
+/*---------overall page------------*/
+//height equivalents
+$(".chart").css({'height':'400px'});
+
 $(function(){
   $.post("../pages/reportsGenerator.php",
   {
-    report: "overallPie",
+    report: "expensePie",
   },
   function(data){
     console.log(data);
-    var r = 66;
-    var g = 134;
-    var b = 224;
+    var r = 220;
+    var g = 75;
+    var b = 75;
     var dataCharts = [];
     var date = [];
 
-    $.each(data["pie"]["transaction"], function( index, value ) {
+    $.each(data["pie"], function( index, value ) {
       console.log(index + " " + value);
       if(value > 0){
 
@@ -20,19 +24,19 @@ $(function(){
         d["value"] = value;
         d["color"] = "rgb(" + r + "," + g + "," + b + ")";
         dataCharts.push(d);
-        r = r - 20;
-        g = g - 30;
-        b = b - 40;
+        r = r - 40;
+        g = g - 20;
+        b = b - 30;
       }
     });
-    overallSetting();
-    $("#overallPie").drawDoughnutChart(dataCharts);
+    transactionSettings();
+    $("#expensePie").drawDoughnutChart(dataCharts);
   }, "json");
 
 
 });
 
-function overallSetting(){
+function transactionSettings(){
     $.fn.drawDoughnutChart = function(data, options) {
       var $this = this,
         W = $this.width(),
@@ -58,7 +62,7 @@ function overallSetting(){
           tipOffsetY: -45,
           tipClass: "doughnutTip",
           summaryClass: "doughnutSummary",
-          summaryTitle: "OVERALL:",
+          summaryTitle: "TRANSACTIONS:",
           summaryTitleClass: "doughnutSummaryTitle",
           summaryNumberClass: "doughnutSummaryNumber",
           beforeDraw: function() {  },
@@ -263,3 +267,5 @@ function overallSetting(){
       return $this;
     };
 }
+
+/*---------end values for overall page----*/

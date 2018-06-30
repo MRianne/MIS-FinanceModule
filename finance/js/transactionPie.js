@@ -1,17 +1,17 @@
 $(function(){
   $.post("../pages/reportsGenerator.php",
   {
-    report: "overallPie",
+    report: "transactionPie",
   },
   function(data){
     console.log(data);
-    var r = 66;
-    var g = 134;
-    var b = 224;
+    var r = 180;
+    var g = 255;
+    var b = 160;
     var dataCharts = [];
     var date = [];
 
-    $.each(data["pie"]["transaction"], function( index, value ) {
+    $.each(data["pie"], function( index, value ) {
       console.log(index + " " + value);
       if(value > 0){
 
@@ -20,19 +20,19 @@ $(function(){
         d["value"] = value;
         d["color"] = "rgb(" + r + "," + g + "," + b + ")";
         dataCharts.push(d);
-        r = r - 20;
-        g = g - 30;
-        b = b - 40;
+        r = r - 30;
+        g = g - 40;
+        b = b - 20;
       }
     });
-    overallSetting();
-    $("#overallPie").drawDoughnutChart(dataCharts);
+    transactionSettings();
+    $("#transactionPie").drawDoughnutChart(dataCharts);
   }, "json");
 
 
 });
 
-function overallSetting(){
+function transactionSettings(){
     $.fn.drawDoughnutChart = function(data, options) {
       var $this = this,
         W = $this.width(),
@@ -58,7 +58,7 @@ function overallSetting(){
           tipOffsetY: -45,
           tipClass: "doughnutTip",
           summaryClass: "doughnutSummary",
-          summaryTitle: "OVERALL:",
+          summaryTitle: "TRANSACTIONS:",
           summaryTitleClass: "doughnutSummaryTitle",
           summaryNumberClass: "doughnutSummaryNumber",
           beforeDraw: function() {  },
