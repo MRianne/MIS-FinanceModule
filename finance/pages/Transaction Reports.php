@@ -74,6 +74,7 @@
         </div>
         <?php
         if(isset($_POST['go'])){
+          if(isset($_POST['inputTerm']) && isset($_POST['inputSy'])){
           $val_term = $_POST['inputTerm'];
           $val_sy = $_POST['inputSy'];
           $sql = "SELECT * FROM transactions where term=$val_term AND sy=$val_sy";
@@ -103,9 +104,11 @@
           }
           echo'</table>';
         }
+        }
         ?>
       <?php
       if(isset($_POST['search'])){
+        if(isset($_POST['inputSearch']) &&  preg_match('/^\d+$/', $_POST['inputSearch'])){
         $val = $_POST['inputSearch'];
         $sql = "SELECT * FROM transactions where ref_id=$val";
         $result = mysqli_query($conn,$sql);
@@ -135,6 +138,7 @@
           echo'<tr><td>'.$row['ref_id'].'</td><td>'.$typeName.'</td><td>'.$row['amount'].'</td><td>'.$row['term'].'</td><td>'.$row['sy'].'</td><td>'.$row['remarks'].'</td><td>'.$row['date_added'].'</td></tr>';
         }
         echo'</table>';
+      }
       }
       ?>
         <div class="card-panel" style="overflow:auto">

@@ -74,6 +74,7 @@
         </div>
         <?php
         if(isset($_POST['go'])){
+          if(isset($_POST['inputTerm']) && isset($_POST['inputSy'])){
           $val_term = $_POST['inputTerm'];
           $val_sy = $_POST['inputSy'];
           $sql = "SELECT * FROM expense where term=$val_term AND sy=$val_sy";
@@ -82,7 +83,6 @@
           echo'<h5 style="text-align:center;">Filter Result</h5>';
           echo'<table class="acm" id = "transactionTable" style="width:100%;">';
           echo'<th> <a href="Transaction Reports.php?sorting='.$sort.'&field=ref_id"> Reference ID </a></th>
-          <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=type_id"> Type </a></th>
           <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=amount"> Amount </a></th>
           <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=term"> Term </a></th>
           <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=sy"> SY </a></th>
@@ -99,13 +99,15 @@
             {
               $typeName = $row1['type_name'];
             }
-            echo'<tr><td>'.$row['ref_id'].'</td><td>'.$typeName.'</td><td>'.$row['amount'].'</td><td>'.$row['term'].'</td><td>'.$row['sy'].'</td><td>'.$row['purpose'].'</td><td>'.$row['date_added'].'</td></tr>';
+            echo'<tr><td>'.$row['ref_id'].'</td><td>'.$row['amount'].'</td><td>'.$row['term'].'</td><td>'.$row['sy'].'</td><td>'.$row['purpose'].'</td><td>'.$row['date_added'].'</td></tr>';
           }
           echo'</table>';
+        }
         }
         ?>
       <?php
       if(isset($_POST['search'])){
+        if(isset($_POST['inputSearch']) &&  preg_match('/^\d+$/', $_POST['inputSearch'])){
         $val = $_POST['inputSearch'];
         $sql = "SELECT * FROM expense where ref_id=$val";
         $result = mysqli_query($conn,$sql);
@@ -113,7 +115,6 @@
         echo'<h5 style="text-align:center;">Search Result</h5>';
         echo'<table class="acm" id = "transactionTable" style="width:100%;">';
         echo'<th> <a href="Transaction Reports.php?sorting='.$sort.'&field=ref_id"> Reference ID </a></th>
-        <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=type_id"> Type </a></th>
         <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=amount"> Amount </a></th>
         <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=term"> Term </a></th>
         <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=sy"> SY </a></th>
@@ -132,9 +133,10 @@
           {
             $typeName = $row1['type_name'];
           }
-          echo'<tr><td>'.$row['ref_id'].'</td><td>'.$typeName.'</td><td>'.$row['amount'].'</td><td>'.$row['term'].'</td><td>'.$row['sy'].'</td><td>'.$row['purpose'].'</td><td>'.$row['date_added'].'</td></tr>';
+          echo'<tr><td>'.$row['ref_id'].'</td><td>'.$row['amount'].'</td><td>'.$row['term'].'</td><td>'.$row['sy'].'</td><td>'.$row['purpose'].'</td><td>'.$row['date_added'].'</td></tr>';
         }
         echo'</table>';
+      }
       }
       ?>
         <div class="card-panel" style="overflow:auto">
@@ -151,10 +153,6 @@
             if($_GET['field']=='ref_id')
             {
               $field = "ref_id";
-            }
-            elseif($_GET['field']=='type_id')
-            {
-              $field = "type_id";
             }
             elseif($_GET['field']=='amount')
             {
@@ -178,10 +176,9 @@
             }
             $sql = "SELECT * FROM expense ORDER BY $field $sort";
             $result = mysqli_query($conn,$sql);
-            echo'<h5 style="text-align:center;">Transaction Table</h5>';
+            echo'<h5 style="text-align:center;">Expense Table</h5>';
             echo'<table class="acm" id = "transactionTable" style="width:100%;">';
             echo'<th> <a href="Transaction Reports.php?sorting='.$sort.'&field=ref_id"> Reference ID </a></th>
-            <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=type_id"> Type </a></th>
             <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=amount"> Amount </a></th>
             <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=term"> Term </a></th>
             <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=sy"> SY </a></th>
@@ -198,7 +195,7 @@
               {
                 $typeName = $row1['type_name'];
               }
-              echo'<tr><td>'.$row['ref_id'].'</td><td>'.$typeName.'</td><td>'.$row['amount'].'</td><td>'.$row['term'].'</td><td>'.$row['sy'].'</td><td>'.$row['purpose'].'</td><td>'.$row['date_added'].'</td></tr>';
+              echo'<tr><td>'.$row['ref_id'].'</td><td>'.$row['amount'].'</td><td>'.$row['term'].'</td><td>'.$row['sy'].'</td><td>'.$row['purpose'].'</td><td>'.$row['date_added'].'</td></tr>';
             }
             echo'</table>';
           }else{
@@ -208,7 +205,6 @@
             echo'<h5 style="text-align:center;">Transaction Table</h5>';
             echo'<table class="acm" id = "transactionTable" style="width:100%;">';
             echo'<th> <a href="Transaction Reports.php?sorting='.$sort.'&field=ref_id"> Reference ID </a></th>
-            <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=type_id"> Type </a></th>
             <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=amount"> Amount </a></th>
             <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=term"> Term </a></th>
             <th> <a href="Transaction Reports.php?sorting='.$sort.'&field=sy"> SY </a></th>
@@ -225,7 +221,7 @@
               {
                 $typeName = $row1['type_name'];
               }
-              echo'<tr><td>'.$row['ref_id'].'</td><td>'.$typeName.'</td><td>'.$row['amount'].'</td><td>'.$row['term'].'</td><td>'.$row['sy'].'</td><td>'.$row['purpose'].'</td><td>'.$row['date_added'].'</td></tr>';
+              echo'<tr><td>'.$row['ref_id'].'</td><td>'.$row['amount'].'</td><td>'.$row['term'].'</td><td>'.$row['sy'].'</td><td>'.$row['purpose'].'</td><td>'.$row['date_added'].'</td></tr>';
             }
             echo'</table>';
           }

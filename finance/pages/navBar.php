@@ -62,6 +62,19 @@ if (isset($_POST['sub'])){
     window.history.back();
     </script>';
   }
+  if($type_slct==2){
+    $sql = "UPDATE accounts SET status=1 WHERE idno=$studid";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Record updated successfully";
+    } else {
+      echo '<script type="text/javascript">alert("Transaction not added")</script>';
+      echo '<script>
+      window.history.back();
+      </script>';
+    }
+  }
+
 }
 ?>
 
