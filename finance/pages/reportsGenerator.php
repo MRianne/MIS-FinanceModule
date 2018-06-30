@@ -114,10 +114,53 @@ function expenseASC($conn){
 }
 
 function computeOverAll($conn){
-	$transaction = transaction($conn);
-	$expense = expense($conn);
+	$transaction = transactionASC($conn);
+	$expense = expenseASC($conn);
+	$type = getTransactionTypes($conn);
 
+	$data["pie"] = array("transaction" => initializePieType($type),
+												"expense" => initializePieType($type));
+	$data["total"] = 0;
 
+	foreach ($transaction as $key => $value) {
+		if(array_key_exists($value["type"],$data["pie"]["transaction"])){
+			$data["pie"]["transaction"][$value["type"]] += floatval($value["amount"]);
+		}
+		else{
+			$data["pie"]["transaction"][$value["type"]] = floatval($value["amount"]);
+		}
+
+		$data["total"] += floatval($value["amount"]);
+	}
+
+	foreach ($expense as $key => $value) {
+		if(array_key_exists($value["type"],$data["pie"]["expense"]) &&
+				array_key_exists($value["type"],$data["pie"]["transaction"])){
+			$data["pie"]["expense"][$value["type"]] += floatval($value["amount"]);
+			$data["pie"]["transaction"][$value["type"]] -= floatval($value["amount"]);
+		}
+		else if(array_key_exists($value["type"],$data["pie"]["expense"]) &&
+							!array_key_exists($value["type"],$data["pie"]["transaction"])){
+			$data["pie"]["expense"][$value["type"]] += floatval($value["amount"]);
+			$data["pie"]["transaction"][$value["type"]] = -floatval($value["amount"]);
+		}
+		else{
+			$data["pie"]["expense"][$value["type"]] = floatval($value["amount"]);
+			$data["pie"]["transaction"][$value["type"]] = -floatval($value["amount"]);
+		}
+		$data["total"] -= floatval($value["amount"]);
+	}
+
+	return $data;
+}
+
+function initializePieType($type){
+	$data = array();
+	foreach ($type as $value) {
+		$data[$value["name"]] = 0;
+	}
+
+	return $data;
 }
 
 function computeTransactions($transactions = array(), $conn){
@@ -253,6 +296,11 @@ else if(isset($_POST['report']) && $_POST['report'] == "expense"){
 	$data["table"] = expenseDESC($conn);
 	$data["chart"] = computeExpenses(expenseASC($conn), $conn);
 	$data["type"] = getTransactionTypes($conn);
+	echo json_encode($data);
+}
+else if(isset($_POST['report']) && $_POST['report'] == "transactionPie"){
+	$data["table"] = expenseDESC($conn);
+	$data["chart"] = computeOverAll($conn);
 	echo json_encode($data);
 }
 

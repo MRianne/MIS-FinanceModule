@@ -1,15 +1,4 @@
-$(function(){
-  $("#doughnutChart").drawDoughnutChart([
-    { title: "Tokyo",         value : 10,  color: "#B2BB1D" },
-    { title: "San Francisco", value:  80,   color: "#72CDF4" },
-    { title: "New York",      value:  70,   color: "#781D7E" },
-    { title: "London",        value : 50,   color: "#EF4035" },
-    { title: "Sydney",        value : 40,   color: "#F59F1A" },
-    { title: "Berlin",        value : 20,   color: "#FFD200" }
-    /*other color if u wanna add
-    { title: "Berlin",        value : 20,   color: "#005596" }*/
-  ]);
-});
+
 /*!
  * jquery.drawDoughnutChart.js
  * Version: 0.4.1(Beta)
@@ -18,9 +7,9 @@ $(function(){
  * Copyright 2014 hiro
  * https://github.com/githiro/drawDoughnutChart
  * Released under the MIT license.
- * 
+ *
  */
-;(function($, undefined) {
+$(function($, undefined) {
   $.fn.drawDoughnutChart = function(data, options) {
     var $this = this,
       W = $this.width(),
@@ -46,7 +35,7 @@ $(function(){
         tipOffsetY: -45,
         tipClass: "doughnutTip",
         summaryClass: "doughnutSummary",
-        summaryTitle: "TOTAL:",
+        summaryTitle: "EXPENSES:",
         summaryTitleClass: "doughnutSummaryTitle",
         summaryNumberClass: "doughnutSummaryNumber",
         beforeDraw: function() {  },
@@ -106,7 +95,7 @@ $(function(){
     var summarySize = (cutoutRadius - (doughnutRadius - cutoutRadius)) * 2,
         $summary = $('<div class="' + settings.summaryClass + '" />')
                    .appendTo($this)
-                   .css({ 
+                   .css({
                      width: summarySize + "px",
                      height: summarySize + "px",
                      "margin-left": -(summarySize / 2) + "px",
@@ -251,75 +240,3 @@ $(function(){
     return $this;
   };
 })(jQuery);
-
-
-/*----line chart---*/
-
-$(function () {
-        $('#container').highcharts({
-            chart: {
-                type: 'spline'
-            },
-            title: {
-                text: 'Campaign Activity'
-            },
-            subtitle: {
-                text: '6/19 - 9/19'
-            },
-            xAxis: {
-                type: 'datetime',
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            yAxis: {
-                title: {
-                    text: 'Daily Activity Totals'
-                },
-                min: 0,
-                minorGridLineWidth: 0,
-                gridLineWidth: 0,
-                alternateGridColor: null,
-                plotBands: []
-            },
-            tooltip: {
-                valueSuffix: ' users/week'
-            },
-            plotOptions: {
-                spline: {
-                    lineWidth: 4,
-                    states: {
-                        hover: {
-                            lineWidth: 3
-                        }
-                    },
-                    marker: {
-                        enabled: false
-                    },
-                    pointInterval: 86400000 * 7,
-                    pointStart: Date.UTC(2009, 9, 6, 0, 0, 0)
-                }
-            },
-            series: [{
-                name: 'New Users',
-                data: [41.3, 5.1, 4.3, 5.2, 5.4, 44.7, 3.5, 6.9, 7.1]
-    
-            }, {
-                name: 'Active Users',
-                data: [0.0, 50.0, 40.0, 0.0, 0.0, 40.0, 0.0, 50.3, 0.0]
-            }, {
-                name: 'Sweepstakes Registrations',
-                data: [10.0, 30.0, 10.0, 20.0,  0.0, 0.0, 65.0, 44, 99]
-            }, {
-                name: 'Sweepstakes Entries',
-                data: [10.0, 30.0, 10.0, 20.0, 20.0, 34, 29, 0.0, 0.0]
-            }]
-            ,
-            navigation: {
-                menuItemStyle: {
-                    fontSize: '15px'
-                }
-            }
-        });
-    });
-    

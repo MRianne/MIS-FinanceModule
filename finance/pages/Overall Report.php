@@ -8,16 +8,16 @@
         <link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script>
-      
+
     </script>
 	</head>
 
 
     <body >
-    
+
     <div class="wrapper">
-       
-    
+
+
             <?php $page = 'overall'; include('navBar.php'); ?>
               <div class="acm-container">
 
@@ -27,10 +27,10 @@
                     <h3 class="acm-text acm-color">Overall report</h3>
                     <div class="col s5">
                         <div class="card-panel">
-                    <div id="doughnutChart" style="max-width: 100%; " class="chart">
-                    </div>
-                    </div>    
-                    </div>
+		                    	<div id="overallPie" style="max-width: 100%; " class="chart">
+			                    </div>
+		                    </div>
+	                   </div>
                     <div class="col s7">
                         <div class="card-panel bar-equiv">
                             <div class="skillbar clearfix " data-percent="20%">
@@ -74,14 +74,6 @@
                                 <div class="skillbar-bar" style="background: #4288d0;"></div>
                                 <div class="skill-bar-percent">70%</div>
                             </div> <!-- End Skill Bar -->
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="card-panel">
-                            <h4 class="acm-text">Title</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         </div>
                     </div>
                 </div>
@@ -95,9 +87,9 @@
                     <h3 class="acm-text acm-color">Transaction report</h3>
                     <div class="col s5">
                         <div class="card-panel">
-                    <div id="doughnutChart" style="max-width: 100%; " class="chart">
-                    </div>
-                    </div>    
+			                    <div id="transactionPie" style="max-width: 100%; " class="chart">
+			                    </div>
+                    	</div>
                     </div>
                     <div class="col s7">
                         <div class="card-panel bar-equiv">
@@ -142,14 +134,6 @@
                                 <div class="skillbar-bar" style="background: #4288d0;"></div>
                                 <div class="skill-bar-percent">70%</div>
                             </div> <!-- End Skill Bar -->
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="card-panel">
-                            <h4 class="acm-text">Title</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                         </div>
                     </div>
                 </div>
@@ -162,9 +146,9 @@
                     <h3 class="acm-text acm-color">Expense report</h3>
                     <div class="col s5">
                         <div class="card-panel">
-                    <div id="doughnutChart" style="max-width: 100%; " class="chart">
-                    </div>
-                    </div>    
+			                    <div id="doughnutChart" style="max-width: 100%; " class="chart">
+			                    </div>
+		                    </div>
                     </div>
                     <div class="col s7">
                         <div class="card-panel bar-equiv">
@@ -212,32 +196,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="card-panel">
-                            <h4 class="acm-text">Title</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
             <!---end of overall report--->
 
 
 
-            
+
               </div>
 
 <!--scripts--->
 
 
-   
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>
-    <script src="../js/pie.js"></script>
-
-    <script src="../js/values.js"></script>
+    <script src="../js/overallPie.js"></script>
+		<script src="../js/transactionPieSettings.js"></script>
+    <script src="../js/transactionPieValue.js"></script>
+    <script src="../js/expensePieSettings.js"></script>
+    <script src="../js/expensePieValue.js"></script>
 	</body>
 </html>
 

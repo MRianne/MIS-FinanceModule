@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2018 at 07:19 AM
+-- Generation Time: Jun 30, 2018 at 04:28 AM
 -- Server version: 10.1.10-MariaDB
 -- PHP Version: 7.0.4
 
@@ -8334,7 +8334,7 @@ INSERT INTO `expense` (`ref_id`, `type_id`, `amount`, `term`, `sy`, `purpose`, `
 (1, 1, 200, 1, 20182019, 'print flyers', '2018-06-18 05:07:07'),
 (2, 1, 600, 1, 20182019, 'downpayment for id lace', '2018-06-25 05:07:07'),
 (3, 2, 50, 1, 20182019, 'special paper for membership id', '2018-06-20 05:08:44'),
-(4, 2, 500, 1, 20182019, 'freebies', '2018-06-27 05:08:44');
+(4, 2, 500, 1, 20182019, 'freebies', '2018-06-30 00:04:45');
 
 -- --------------------------------------------------------
 
@@ -8462,8 +8462,9 @@ CREATE TABLE `transactions` (
 INSERT INTO `transactions` (`ref_id`, `type_id`, `amount`, `term`, `sy`, `remarks`, `date_added`) VALUES
 (1, 1, 500, 1, 20182019, '', '2018-06-19 15:56:25'),
 (2, 1, 300, 1, 20182019, '', '2018-06-20 15:56:25'),
-(3, 2, 100, 1, 20182019, 'downpayment', '2018-06-22 00:00:00'),
-(4, 1, 500, 1, 20182019, '', '2018-06-25 01:49:00');
+(3, 2, 100, 1, 20182019, 'downpayment', '2018-06-22 00:26:02'),
+(4, 1, 500, 1, 20182019, '', '2018-06-25 01:49:00'),
+(5, 2, 600, 1, 20182019, '', '2018-06-29 02:00:00');
 
 -- --------------------------------------------------------
 
@@ -8625,7 +8626,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `ref_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `type`
 --
