@@ -8,13 +8,13 @@
         <link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
           <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script>
-      
+
     </script>
 	</head>
 
 
     <body >
-    
+
     <div class="wrapper">
             <?php $page = 'overall'; include('navBar.php'); ?>
               <div class="acm-container">
@@ -27,7 +27,7 @@
                         <div class="card-panel">
                     <div id="doughnutChart" style="max-width: 100%; " class="chart">
                     </div>
-                    </div>    
+                    </div>
                     </div>
                     <div class="col s7">
                         <div class="card-panel bar-equiv">
@@ -95,7 +95,7 @@
                         <div class="card-panel">
                     <div id="doughnutChart" style="max-width: 100%; " class="chart">
                     </div>
-                    </div>    
+                    </div>
                     </div>
                     <div class="col s7">
                         <div class="card-panel bar-equiv">
@@ -162,7 +162,7 @@
                         <div class="card-panel">
                     <div id="doughnutChart" style="max-width: 100%; " class="chart">
                     </div>
-                    </div>    
+                    </div>
                     </div>
                     <div class="col s7">
                         <div class="card-panel bar-equiv">
@@ -223,13 +223,13 @@
 
 
 
-            
+
               </div>
 
 <!--scripts--->
 
 
-   
+
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>

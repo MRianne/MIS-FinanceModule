@@ -46,20 +46,17 @@ echo 'User name does not exist in the table.';
 <div class="card-panel pos" style="overflow-x:auto;">
   <table class="acm" style="width:100%">
     <thead>
-      <tr>
-        <th>Total Budget</th>
-        <th>Total Expense</th>
-        <th>Remaining Budget</th>
+      <tr style="text-align:center;">
+        <th style="text-align:center;">Total Budget</th>
+        <th style="text-align:center;">Total Expense</th>
+        <th style="text-align:center;">Remaining Budget</th>
       </tr>
     </thead>
-    <tr>
-      
-      <td> <?php echo $sum; ?> </td>
+    <tr >
+      <td style="text-align:center;"> <?php echo $sum; ?> </td>
+      <td style="text-align:center;"> <?php echo $dif; ?> </td>
+      <td style="text-align:center;"> <?php echo ($sum - $dif); ?> </td>
 
-      <td> <?php echo $dif; ?> </td>
-      <td> <?php echo ($sum - $dif); ?> </td>
-      
-        <td> </td>
     </tr>
   </table>
 </div>
