@@ -98,7 +98,7 @@ a.article {
 .acm-bgcolor{background-color: rgb(1, 130, 172);}
 .acm-nav{
   position: fixed;
-  z-index: 1;
+  z-index: 20;
 }
 a.active{ 
 background-color: rgba(0, 0, 0, 0.1); }
@@ -167,6 +167,16 @@ table.acm > thead > tr > th{
   margin: 0 auto;
   max-width: 1280px;
   width: 100%;
+
+}
+.relativepos{
+  position: relative;
+  
+}
+
+.small-pad {
+  padding: 222px;
+  position: relative;
 }
 
 @media only screen and (min-width: 601px) {
@@ -180,6 +190,8 @@ table.acm > thead > tr > th{
     width: 90%;
   }
 }
+
+
 
 
 /*----pie chart---*/

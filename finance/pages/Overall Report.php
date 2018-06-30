@@ -16,8 +16,6 @@
     <body >
 
     <div class="wrapper">
-
-
             <?php $page = 'overall'; include('navBar.php'); ?>
               <div class="acm-container">
 
@@ -146,7 +144,7 @@
                     <h3 class="acm-text acm-color">Expense report</h3>
                     <div class="col s5">
                         <div class="card-panel">
-			                    <div id="doughnutChart" style="max-width: 100%; " class="chart">
+			                    <div id="expensePie" style="max-width: 100%; " class="chart">
 			                    </div>
 		                    </div>
                     </div>
