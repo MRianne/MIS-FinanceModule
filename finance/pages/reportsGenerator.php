@@ -121,46 +121,61 @@ function expenseASC($conn){
 	return $expenses;
 }
 
-function computeOverAll($conn){
-	$transaction = transactionASC($conn);
-	$expense = expenseASC($conn);
-	$type = getTransactionTypes($conn);
+// function computeOverAll($conn){
+// 	$transaction = transactionASC($conn);
+// 	$expense = expenseASC($conn);
+// 	$type = getTransactionTypes($conn);
+//
+// 	$data["pie"] = array("transaction" => initializePieType($type),
+// 												"expense" => initializePieType($type));
+// 	$data["total"] = 0;
+//
+// 	foreach ($transaction as $key => $value) {
+// 		if(array_key_exists($value["type"],$data["pie"]["transaction"])){
+// 			$data["pie"]["transaction"][$value["type"]] += floatval($value["amount"]);
+// 		}
+// 		else{
+// 			$data["pie"]["transaction"][$value["type"]] = floatval($value["amount"]);
+// 		}
+//
+// 		$data["total"] += floatval($value["amount"]);
+// 	}
+//
+// 	foreach ($expense as $key => $value) {
+// 		if(array_key_exists($value["type"],$data["pie"]["expense"]) &&
+// 				array_key_exists($value["type"],$data["pie"]["transaction"])){
+// 			$data["pie"]["expense"][$value["type"]] += floatval($value["amount"]);
+// 			$data["pie"]["transaction"][$value["type"]] -= floatval($value["amount"]);
+//
+// 			if($data["pie"]["transaction"][$value["type"]] < 0){
+// 				$data["pie"] = accounting($data["pie"], abs($data["pie"]["transaction"][$value["type"]] ));
+// 			}
+// 		}
+// 		else if(array_key_exists($value["type"],$data["pie"]["expense"]) &&
+// 							!array_key_exists($value["type"],$data["pie"]["transaction"])){
+// 			$data["pie"]["expense"][$value["type"]] += floatval($value["amount"]);
+// 			$data["pie"]["transaction"][$value["type"]] = -floatval($value["amount"]);
+// 		}
+// 		else{
+// 			$data["pie"]["expense"][$value["type"]] = floatval($value["amount"]);
+// 			$data["pie"]["transaction"][$value["type"]] = -floatval($value["amount"]);
+// 		}
+// 		$data["total"] -= floatval($value["amount"]);
+// 	}
+//
+// 	return $data;
+// }
 
-	$data["pie"] = array("transaction" => initializePieType($type),
-												"expense" => initializePieType($type));
-	$data["total"] = 0;
+function computeOverAll($transaction, $expense){
 
-	foreach ($transaction as $key => $value) {
-		if(array_key_exists($value["type"],$data["pie"]["transaction"])){
-			$data["pie"]["transaction"][$value["type"]] += floatval($value["amount"]);
-		}
-		else{
-			$data["pie"]["transaction"][$value["type"]] = floatval($value["amount"]);
-		}
 
-		$data["total"] += floatval($value["amount"]);
+	if(($transaction["total"] - $expense["total"]) >= 0 ){
+		$data["pie"]["remaining"] = $transaction["total"] - $expense["total"];
+		$data["status"] = "REMAINING BUDGET:";
 	}
-
-	foreach ($expense as $key => $value) {
-		if(array_key_exists($value["type"],$data["pie"]["expense"]) &&
-				array_key_exists($value["type"],$data["pie"]["transaction"])){
-			$data["pie"]["expense"][$value["type"]] += floatval($value["amount"]);
-			$data["pie"]["transaction"][$value["type"]] -= floatval($value["amount"]);
-
-			if($data["pie"]["transaction"][$value["type"]] < 0){
-				$data["pie"] = accounting($data["pie"], abs($data["pie"]["transaction"][$value["type"]] ));
-			}
-		}
-		else if(array_key_exists($value["type"],$data["pie"]["expense"]) &&
-							!array_key_exists($value["type"],$data["pie"]["transaction"])){
-			$data["pie"]["expense"][$value["type"]] += floatval($value["amount"]);
-			$data["pie"]["transaction"][$value["type"]] = -floatval($value["amount"]);
-		}
-		else{
-			$data["pie"]["expense"][$value["type"]] = floatval($value["amount"]);
-			$data["pie"]["transaction"][$value["type"]] = -floatval($value["amount"]);
-		}
-		$data["total"] -= floatval($value["amount"]);
+	else{
+		$data["pie"]["loss"] = abs($transaction["total"] - $expense["total"]);
+		$data["status"] = "LOSS:";
 	}
 
 	return $data;
@@ -174,12 +189,10 @@ function computeTransactionsPie($conn){
 	$data["total"] = 0;
 
 	foreach ($transaction as $key => $value) {
-		if(array_key_exists($value["type"],$data["pie"])){
+		if(array_key_exists($value["type"],$data["pie"]))
 			$data["pie"][$value["type"]] += floatval($value["amount"]);
-		}
-		else{
+		else
 			$data["pie"][$value["type"]] = floatval($value["amount"]);
-		}
 
 		$data["total"] += floatval($value["amount"]);
 	}
@@ -195,12 +208,10 @@ function computeExpensesPie($conn){
 	$data["total"] = 0;
 
 	foreach ($expenses as $key => $value) {
-		if(array_key_exists($value["type"],$data["pie"])){
+		if(array_key_exists($value["type"],$data["pie"]))
 			$data["pie"][$value["type"]] += floatval($value["amount"]);
-		}
-		else{
+		else
 			$data["pie"][$value["type"]] = floatval($value["amount"]);
-		}
 
 		$data["total"] += floatval($value["amount"]);
 	}
@@ -363,6 +374,12 @@ else if(isset($_POST['report']) && $_POST['report'] == "expense"){
 	$data["table"] = expenseDESC($conn);
 	$data["chart"] = computeExpenses(expenseASC($conn), $conn);
 	$data["type"] = getTransactionTypes($conn);
+	echo json_encode($data);
+}
+else if(isset($_POST['report']) && $_POST['report'] == "overall"){
+	$data["trasaction"] = computeTransactionsPie($conn);
+	$data["expense"] = computeExpensesPie($conn);
+	$data["overall"] = computeOverAll($data["trasaction"], $data["expense"]);
 	echo json_encode($data);
 }
 else if(isset($_POST['report']) && $_POST['report'] == "overallPie"){

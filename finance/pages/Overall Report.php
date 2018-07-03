@@ -24,20 +24,20 @@
                 <div class="row">
                     <div class="col s4">
                         <div class="card-panel">
-													<h5 class="acm-text acm-color">Overall report</h5>
+													<h6 class="acm-text acm-color">Overall Report</h6>
 		                    	<div id="overallPie" style="max-width: 100%; " class="chart"></div>
 		                    </div>
 	                   </div>
                      <div class="col s4">
                         <div class="card-panel">
-													 <h5 class="acm-text acm-color">Transaction report</h5>
+													 <h6 class="acm-text acm-color">Transaction Report</h6>
 	 			                   <div id="transactionPie" style="max-width: 100%; " class="chart"></div>
                      		</div>
                      </div>
 
                      <div class="col s4">
                          <div class="card-panel">
-														<h5 class="acm-text acm-color">Expense report</h5>
+														<h6 class="acm-text acm-color">Expense Report</h6>
 	 			                    <div id="expensePie" style="max-width: 100%; " class="chart"></div>
  		                 		 </div>
                      </div>
@@ -55,9 +55,7 @@
     <script src="../js/jquery-3.3.1.min.js"></script>
     <script src="../../js/materialize.js"></script>
     <script src="../../js/init.js"></script>
-    <script src="../js/overallPie.js"></script>
-    <script src="../js/transactionPie.js"></script>
-    <script src="../js/expensePie.js"></script>
+    <script src="../js/overallReports.js"></script>
 	</body>
 </html>
 

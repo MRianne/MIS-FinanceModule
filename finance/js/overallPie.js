@@ -26,7 +26,7 @@ $(function(){
       }
     });
     overallSetting();
-    $("#overallPie").drawDoughnutChart(dataCharts);
+    $("#overallPie").drawDoughnutChart("REMAINING BUDGET", dataCharts);
   }, "json");
 
 
