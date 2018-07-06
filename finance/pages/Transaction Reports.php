@@ -22,30 +22,25 @@
             <div class="center" >
               <div class="row">
                 <div class="col s7">
-                  <select id="type" name="type">
-                    <option value="registration" disabled selected>School Year</option>
+                  <select id="searchSY" name="searchSY">
+                    <option value="" disabled selected>School Year</option>
                     <option value="schoolYear">20172018</option>
                   </select>
                 </div>
                 <div class="col s4">
-                  <select id="type" name="type">
-                    <option value="registration" disabled selected>Term</option>
-                    <option value="firstTerm">1</option>
-                    <option value="secondTerm">2</option>
-                    <option value="thirdTerm">3</option>
+                  <select id="searchTerm" name="searchTerm">
+                    <option value="" disabled selected>Term</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
                   </select>
                 </div>
               </div>
             </div>
           </div>
           <div class="col s6 right">
-            <div class="col s3 right">
-              <button class="btn waves-effect waves-light " type="submit" name="action">search
-                <i class="material-icons right">search</i>
-              </button>
-            </div>
             <div class="col s7 right">
-              <input placeholder="Search by Reference ID" type="text">
+              <input placeholder="Search by Reference ID" type="text" id = "searchID" name = "searchID">
             </div>
           </div>
         </div>

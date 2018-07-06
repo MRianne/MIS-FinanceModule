@@ -15,7 +15,17 @@ if($("#transactionTable").length > 0){
       row += '</tr>';
       $("#transactionTable tbody").append(row);
     });
-    $('#transactionTable').DataTable();
+
+    var table = $('#transactionTable').DataTable({
+        "dom": '<"top">t<"bottom"lp><"clear">'
+    } );
+
+    $('#searchID').on( 'keyup', function () {
+        table
+        .columns( 0 )
+        .search( this.value )
+        .draw();
+    } );
 	}, "json");
 }
 
