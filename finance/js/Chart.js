@@ -12,7 +12,7 @@ $(function () {
     }
     return a;
   }
-  
+
   Highcharts.setOptions({
     colors: ['#f47961', '#60be7b', '#4b5d69', '#9fdbea']
   });
@@ -91,12 +91,12 @@ $(function () {
 
 /*bar graph*/
 setTimeout(function start (){
-  
-  $('.bar').each(function(i){  
+
+  $('.bar').each(function(i){
     var $bar = $(this);
     $(this).append('<span class="count"></span>')
     setTimeout(function(){
-      $bar.css('width', $bar.attr('data-percent'));      
+      $bar.css('width', $bar.attr('data-percent'));
     }, i*100);
   });
 

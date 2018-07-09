@@ -3,10 +3,11 @@
 
 <nav class="acm-nav acm-bgcolor">
   <div class="nav-wrapper">
+    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
-      <li><a <?php echo ($page == 'overall') ? "class='active'" : ""; ?> href="Overall Report.php">Overall Report</a></li>
-      <li><a <?php echo ($page == 'transaction') ? "class='active'" : ""; ?>  href="Transaction Reports.php">Transaction Report</a></li>
-      <li><a <?php echo ($page == 'expense') ? "class='active'" : ""; ?>  href="Expense Reports.php">Expense Report</a></li>
+      <li><a <?php echo ($page == 'overall') ? "class='active'" : ""; ?> href="Overall_Report.php">Overall Report</a></li>
+      <li><a <?php echo ($page == 'transaction') ? "class='active'" : ""; ?>  href="Transaction_Reports.php">Transaction Report</a></li>
+      <li><a <?php echo ($page == 'expense') ? "class='active'" : ""; ?>  href="Expense_Reports.php">Expense Report</a></li>
       <!-- Dropdown Trigger -->
       <li><a class="dropdown-button" href="#!" data-target="addDropdown">Add<i class="material-icons right">add</i></a>
 
@@ -14,21 +15,28 @@
     </ul>
 
     <!--mobile nav-->
-
-    <ul id="nav-mobile" class="sidenav">
-      <li><a href="Overall Report.php">Overall Report</a></li>
-      <li><a href="Transaction Reports.php">Transaction Report</a></li>
-      <li><a href="Expense Reports.php">Expense Report</a></li>
-    </ul>
-    <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
   </div>
 </nav>
+<ul id="nav-mobile" class="sidenav" style = "background-color: rgb(1, 130, 172);">
+  <li><a><b>Add Finance</b></a>
+    <ul style = "margin-left: 10%">
+      <li><a href="Add Transaction.php"style = "color: rgb(1, 130, 172);">Add Transaction</a></li>
+      <li><a href="Add Expense.php"style = "color: rgb(1, 130, 172);">Add Expense</a></li>
+    </ul>
+  </li>
+  <li><a><b>Finance Report</b></a>
+    <ul style = "margin-left: 10%">
+      <li><a href="Overall_Report.php" style = "color: rgb(1, 130, 172);">Overall Report</a></li>
+      <li><a href="Transaction_Reports.php" style = "color: rgb(1, 130, 172);">Transaction Report</a></li>
+      <li><a href="Expense_Reports.php" style = "color: rgb(1, 130, 172);">Expense Report</a></li>
+    </ul>
+  </li>
+</ul>
+
 <ul id="addDropdown" class="dropdown-content">
   <li><a href="Add Transaction.php">Add Transaction</a></li>
   <li><a href="Add Expense.php">Add Expense</a></li>
 </ul>
-
-
 
 
 <!-- PHP FOR ADD TRANSACTION -->
