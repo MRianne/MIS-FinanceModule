@@ -20,7 +20,7 @@
       <div class="acm-container" id = "main">
           <!---overall report--->
         	<div class="row pos top-margin">
-						<div class="row">
+						<div class="row" style = "margin-bottom: 0px">
 							<div class="col s6 left">
 		            <div class="center" >
 		              <div class="row">
@@ -39,6 +39,25 @@
 		          </div>
 						</div>
             <div class="row">
+								<div class="col s12">
+									<div class="card-panel" id = "legends">
+										<h6 class="acm-text acm-color">Legends</h6>
+										<div class="row" style = "margin-bottom: 0px">
+											<div class="col s6">
+												<center>
+													<span style="width:10px; height:10px;" id="transaction_legend"></span>
+													Transaction (Budget)
+												</center>
+											</div>
+											<div class="col s6">
+												<center>
+													<span style="width:10px; height:10px;" id="expense_legend"></span>
+													Expensees (Loss)
+												</center>
+											</div>
+										</div>
+									</div>
+								</div>
                 <div class="col s4">
                     <div class="card-panel">
 											<h6 class="acm-text acm-color">Overall Report</h6>

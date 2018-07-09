@@ -65,7 +65,54 @@ function initializeDoughnutChart(sy, term){
                     "TOTAL BUDGET", "transactionPie");
       doughnutChart(data["expense"]["pie"], color["expense"],
                     "TOTAL EXPENSE", "expensePie");
+
+      initializeLegends(data["types"]);
   }, "json");
+}
+
+function initializeLegends(data){
+  var colors = {
+    transaction: {
+      r: [66, 20],
+      g: [134, 30],
+      b: [224, 40]
+    },
+    expense: {
+      r: [220, 40],
+      g: [75, 30],
+      b: [75, 20]
+    }
+  };
+
+  $("#transaction_legend").css("background-color",
+  'rgb('+ colors["transaction"]["r"][0]  + ',' + colors["transaction"]["g"][0]  + ',' + colors["transaction"]["b"][0] + ')');
+
+  $("#expense_legend").css("background-color",
+  'rgb('+ colors["expense"]["r"][0]  + ',' + colors["expense"]["g"][0]  + ',' + colors["expense"]["b"][0] + ')');
+
+  var type = 0;
+  var typeLegends = '<div class="row" id = "type_legends" style = "margin-bottom: 0px"> <center>';
+
+  $.each(data, function( index, value ) {
+    var t = colors["transaction"]["r"][0] + "," + colors["transaction"]["g"][0] + "," + colors["transaction"]["b"][0];
+    var e = colors["expense"]["r"][0] + "," + colors["expense"]["g"][0] + "," + colors["expense"]["b"][0];
+
+    typeLegends += '<span style="margin-left: 15px; width:10px; height:10px; background-color: rgb(' + t + ')" id="'
+          + value["name"] + '_transaction_legend"></span> ' +
+          '<span style="width:10px; height:10px; background-color: rgb(' + e + ')" id="'
+                + value["name"] + '_legend"></span> '
+          + value["name"];
+    colors["transaction"]["r"][0] -= colors["transaction"]["r"][1];
+    colors["transaction"]["g"][0] -= colors["transaction"]["g"][1];
+    colors["transaction"]["b"][0] -= colors["transaction"]["b"][1];
+    colors["expense"]["r"][0] -= colors["expense"]["r"][1];
+    colors["expense"]["g"][0] -= colors["expense"]["g"][1];
+    colors["expense"]["b"][0] -= colors["expense"]["b"][1];
+  });
+
+  typeLegends += '</center></div>';
+
+  $("#legends").append(typeLegends);
 }
 
 function doughnutChart(data, colors, title, pie){

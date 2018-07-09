@@ -410,6 +410,7 @@ else if(isset($_POST['report']) && $_POST['report'] == "overall"){
 	$data["trasaction"] = computeTransactionsPie($conn, $sy, $term);
 	$data["expense"] = computeExpensesPie($conn, $sy, $term);
 	$data["overall"] = computeOverAll($data["trasaction"], $data["expense"]);
+	$data["types"] = getTransactionTypes($conn);
 	echo json_encode($data);
 }
 else if(isset($_POST['action']) && $_POST['action'] == "initialize"){
