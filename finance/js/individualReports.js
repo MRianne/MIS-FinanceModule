@@ -1,145 +1,206 @@
 if($("#transactionTable").length > 0){
-  $.post("../pages/reportsGenerator.php",
+  $.post("../pages/Reports_Generator.php",
 	{
-		report: "transaction",
+		action: "initialize",
 	},
   function(data){
-    console.log(data);
-    $.each(data["table"], function( index, value ) {
-      var row = '<tr>';
-      row += '<td>' + value["id"] + '</td>';
-      row += '<td>' + value["sy"].substr(2, 2) + value["sy"].substr(6) + ' - ' + value["term"] + '</td>';
-      row += '<td>' + value["type"] + '</td>';
-      row += '<td>' + value["amount"] + '</td>';
-      row += '<td>' + value["date_added"] + '</td>';
-      row += '</tr>';
-      $("#transactionTable tbody").append(row);
+    $.each(data["sy"], function( index, value ) {
+      if (value == 1)
+        $('#searchSY').append($('<option>', {value: index, text : index, selected: "selected"}));
+      else
+        $('#searchSY').append($('<option>', {value: index, text : index }));
+    });
+    $('#searchTerm option[value="' + data["term"] + '"]').attr("selected", "selected");
+	}, "json");
+
+  $(document).ready(function(){
+    var table = $('#transactionTable').DataTable({
+          "processing": true,
+          "serverSide": true,
+          "ajax": {
+              "url": "../pages/Reports_Generator.php",
+              "data": function ( data ) {
+                  data.table = "transaction";
+                  data.sy = $("#searchSY option:selected").val();
+                  data.term = $("#searchTerm option:selected").val();
+              },
+              "dataType": "jsonp"
+          },
+          "columns": [
+              { "data": "ref_id" },
+              { "data": "sy_term" },
+              { "data": "type" },
+              { "data": "amount" },
+              { "data": "remarks", "visible": false },
+              { "data": "date_added" }
+          ],
+          "dom": '<"top"l>t<"bottom"p><"clear">'
     });
 
-    var table = $('#transactionTable').DataTable({
-        "dom": '<"top">t<"bottom"lp><"clear">'
+    $('#searchID').on( 'keyup', function () {
+      table
+      .columns( 0 )
+      .search( this.value )
+      .draw();
+    });
+
+    $('#searchSY').on( 'change', function () {
+      table
+      .columns( 1 )
+      .search( this.value )
+      .draw();
+    });
+
+    $('#searchTerm').on( 'change', function () {
+      table
+      .columns( 1 )
+      .search( this.value )
+      .draw();
+    });
+
+    $('#transactionTable tbody').on('click', 'tr', function () {
+        var data = table.row( this ).data();
+        console.log(data);
+        var receipt = '<div class="container-fluid">' +
+                        '<div class="row">'+
+                          '<b>Reference #: ' + data["ref_id"] + ' </b>' +
+                        '</div>' +
+                        '<div class="row" >'+
+                          '<div class="col-md-3" ><b>Date:</b></div>' +
+                          '<div class="col-md-9" >' + data["date_added"] + '</div>' +
+                        '</div>' +
+                        '<div class="row">'+
+                          '<div class="col-md-3"><b>Type:</b></div>' +
+                          '<div class="col-md-9">' + data["type"] + '</div>' +
+                        '</div>' +
+                        '<div class="row">'+
+                          '<div class="col-md-3"><b>SY - Term:</b></div>' +
+                          '<div class="col-md-9">' + data["sy_term"] + '</div>' +
+                        '</div>' +
+                        '<div class="row">'+
+                          '<div class="col-md-3"><b>Amount:</b></div>' +
+                          '<div class="col-md-9">' + data["amount"] + '</div>' +
+                        '</div>' +
+                        '<div class="row" style = "height: 18%">' +
+                          '<div class="col-md-3"><b>Remarks:</b></div>' +
+                          '<div class="col-md-9" style = "word-wrap: break-word;">' +
+                          data["remarks"] + '</div>' +
+                        '</div>' +
+                        '<div class="row" style = "float:right">' +
+                        '<a class="modal-close waves-effect waves-light btn ">Ok</a>' +
+                        '</div>' +
+                      '</div>';
+
+        $('.modal-content').html(receipt);
+        var res = $("#receipt").modal();
+        var instance = M.Modal.getInstance(res);
+        instance.open();
+        $("#receipt").css({"display": "flex",  "height": "60%", "overflow": "auto"});
     } );
 
-    $('#searchID').on( 'keyup', function () {
-        table
-        .columns( 0 )
-        .search( this.value )
-        .draw();
-    } );
-	}, "json");
+  });
 }
 
 else if($("#expenseTable").length > 0){
-  $.post("../pages/reportsGenerator.php",
+  $.post("../pages/Reports_Generator.php",
 	{
-		report: "expense",
+		action: "initialize",
 	},
   function(data){
-      console.log(data);
-
-      $.each(data["table"], function( index, value ) {
-        var row = '<tr>';
-        row += '<td>' + value["id"] + '</td>';
-        row += '<td>' + value["sy"].substr(2, 2) + value["sy"].substr(6) + ' - ' + value["term"] + '</td>';
-        row += '<td>' + value["type"] + '</td>';
-        row += '<td>' + value["amount"] + '</td>';
-        row += '<td>' + value["date_added"] + '</td>';
-        row += '</tr>';
-        $("#expenseTable tbody").append(row);
-      });
+    console.log($("#searchSY option:selected").val());
+    $.each(data["sy"], function( index, value ) {
+      if (value == 1)
+        $('#searchSY').append($('<option>', {value: index, text : index, selected: "selected"}));
+      else
+        $('#searchSY').append($('<option>', {value: index, text : index }));
+    });
+    $('#searchTerm option[value="' + data["term"] + '"]').attr("selected", "selected");
 	}, "json");
-}
 
-function expenseLineChart(){
-  var r = 220;
-  var g = 75;
-  var b = 75;
-  var dataCharts = [];
-  var date = [];
+  $(document).ready(function(){
+    var table = $('#expenseTable').DataTable({
+          "processing": true,
+          "serverSide": true,
+          "ajax": {
+              "url": "../pages/Reports_Generator.php",
+              "data": function ( data ) {
+                  data.table = "expense";
+                  data.sy = $("#searchSY option:selected").val();
+                  data.term = $("#searchTerm option:selected").val();
+              },
+              "dataType": "jsonp"
+          },
+          "columns": [
+              { "data": "ref_id" },
+              { "data": "sy_term" },
+              { "data": "type" },
+              { "data": "amount" },
+              { "data": "purpose", "visible": false },
+              { "data": "date_added" }
+          ],
+          "dom": '<"top"l>t<"bottom"p><"clear">'
+    });
 
-  $.each(data["type"], function( index, value ) {
-    if(data["chart"][value["name"]] != null){
+    $('#searchID').on( 'keyup', function () {
+      table
+      .columns( 0 )
+      .search( this.value )
+      .draw();
+    });
 
-      var arr = [];
-      for(var i in data["chart"][value["name"]]) {
-        arr.push(data["chart"][value["name"]][i]);
-        if(!date.includes(i))
-           date.push(i);
-      }
+    $('#searchSY').on( 'change', function () {
+      table
+      .columns( 1 )
+      .search( this.value )
+      .draw();
+    });
 
-      var d = [];
-      d["label"] = value["name"];
-      d["fill"] = false;
-      d["lineTension"] = 0.1;
-      d["backgroundColor"] = "rgb(" + r + "," + g + "," + b + ")";
-      d["borderColor"] = "rgb(" + r + "," + g + "," + b + ")";
-      d["pointHoverBorderColor"] = "rgb(" + r + "," + g + "," + (b - 0.5) + ")";
-      d["pointHoverBackgroundColor"] = "rgb(" + r + "," + g + "," + b + ")";
-      d["data"] = arr;
-      dataCharts.push(d);
+    $('#searchTerm').on( 'change', function () {
+      table
+      .columns( 1 )
+      .search( this.value )
+      .draw();
+    });
 
-      r = r - 40;
-      g = g - 20;
-      b = b - 30;
-    }
-  });
+    $('#expenseTable tbody').on('click', 'tr', function () {
+        var data = table.row( this ).data();
+        console.log(data);
+        var receipt = '<div class="container-fluid">' +
+                        '<div class="row">'+
+                          '<b>Reference #: ' + data["ref_id"] + ' </b>' +
+                        '</div>' +
+                        '<div class="row" >'+
+                          '<div class="col-md-3" ><b>Date:</b></div>' +
+                          '<div class="col-md-9" >' + data["date_added"] + '</div>' +
+                        '</div>' +
+                        '<div class="row">'+
+                          '<div class="col-md-3"><b>Type:</b></div>' +
+                          '<div class="col-md-9">' + data["type"] + '</div>' +
+                        '</div>' +
+                        '<div class="row">'+
+                          '<div class="col-md-3"><b>SY - Term:</b></div>' +
+                          '<div class="col-md-9">' + data["sy_term"] + '</div>' +
+                        '</div>' +
+                        '<div class="row">'+
+                          '<div class="col-md-3"><b>Amount:</b></div>' +
+                          '<div class="col-md-9">' + data["amount"] + '</div>' +
+                        '</div>' +
+                        '<div class="row" style = "height: 18%">' +
+                          '<div class="col-md-3"><b>Remarks:</b></div>' +
+                          '<div class="col-md-9" style = "word-wrap: break-word;">' +
+                          data["purpose"] + '</div>' +
+                        '</div>' +
+                        '<div class="row" style = "float:right">' +
+                        '<a class="modal-close waves-effect waves-light btn ">Ok</a>' +
+                        '</div>' +
+                      '</div>';
 
-  var chartdata = {
-    labels: date,
-    datasets: dataCharts
-  };
+        $('.modal-content').html(receipt);
+        var res = $("#receipt").modal();
+        var instance = M.Modal.getInstance(res);
+        instance.open();
+        $("#receipt").css({"display": "flex",  "height": "60%", "overflow": "auto"});
+    } );
 
-  var ctx = $("#expenseLC");
-
-  var LineGraph = new Chart(ctx, {
-    type: 'line',
-    data: chartdata
-  });
-}
-
-function transactionLineChart(){
-  var r = 180;
-  var g = 255;
-  var b = 160;
-  var dataCharts = [];
-  var date = [];
-
-  $.each(data["type"], function( index, value ) {
-    if(data["chart"][value["name"]] != null){
-
-      var arr = [];
-      for(var i in data["chart"][value["name"]]) {
-        arr.push(data["chart"][value["name"]][i]);
-        if(!date.includes(i))
-           date.push(i);
-      }
-
-      var d = [];
-      d["label"] = value["name"];
-      d["fill"] = false;
-      d["lineTension"] = 0.1;
-      d["backgroundColor"] = "rgb(" + r + "," + g + "," + b + ")";
-      d["borderColor"] = "rgb(" + r + "," + g + "," + b + ")";
-      d["pointHoverBorderColor"] = "rgb(" + r + "," + g + "," + (b - 0.5) + ")";
-      d["pointHoverBackgroundColor"] = "rgb(" + r + "," + g + "," + b + ")";
-      d["data"] = arr;
-      dataCharts.push(d);
-
-      r = r - 30;
-      g = g - 40;
-      b = b - 20;
-    }
-  });
-
-  var chartdata = {
-    labels: date,
-    datasets: dataCharts
-  };
-
-  var ctx = $("#transactionLC");
-
-  var LineGraph = new Chart(ctx, {
-    type: 'line',
-    data: chartdata
   });
 }

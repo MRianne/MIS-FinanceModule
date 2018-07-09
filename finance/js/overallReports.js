@@ -1,12 +1,46 @@
 $(".chart").css({'height':'400px'});
 
+$.post("../pages/Reports_Generator.php",
+{
+  action: "initialize",
+},
+function(data){
+  $.each(data["sy"], function( index, value ) {
+    if (value == 1)
+      $('#searchSY').append($('<option>', {value: index, text : index, selected: "selected"}));
+    else
+      $('#searchSY').append($('<option>', {value: index, text : index }));
+  });
+  $('#searchTerm option[value="' + data["term"] + '"]').attr("selected", "selected");
+}, "json");
+
 $(function(){
-  $.post("../pages/reportsGenerator.php",
+  initializeDoughnutChart(
+    $("#searchSY option:selected").val(), $("#searchTerm option:selected").val());
+
+  $('#searchSY').on( 'change', function () {
+    $("#overallPie").empty();
+    $("#expensePie").empty();
+    $("#transactionPie").empty();
+    initializeDoughnutChart(this.value, $("#searchTerm option:selected").val());
+  });
+
+  $('#searchTerm').on( 'change', function () {
+    $("#overallPie").empty();
+    $("#expensePie").empty();
+    $("#transactionPie").empty();
+    initializeDoughnutChart($("#searchSY option:selected").val(), this.value);
+  });
+});
+
+function initializeDoughnutChart(sy, term){
+  $.post("../pages/Reports_Generator.php",
   {
     report: "overall",
+    sy: sy,
+    term: term
   },
   function(data){
-    console.log(data);
     var color = {
       transaction: {
         r: [66, 20],
@@ -32,13 +66,12 @@ $(function(){
       doughnutChart(data["expense"]["pie"], color["expense"],
                     "TOTAL EXPENSE", "expensePie");
   }, "json");
-});
+}
 
 function doughnutChart(data, colors, title, pie){
   var dataCharts = [];
 
   $.each(data, function( index, value ) {
-    console.log(index + " " + value);
     if(value > 0){
 
       var d = [];

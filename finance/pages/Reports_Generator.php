@@ -1,96 +1,120 @@
 <?php
 include('dbcon.php');
 
-function transactionDESC($conn){
+function getTransactions($conn, $req){
 	$types = getTransactionTypes($conn);
-	$sql = "SELECT * FROM transactions ORDER BY date_added DESC";
+	$data = array("draw" => intval($req["draw"]));
+	$sy = $req['sy'];
+	$term = $req['term'];
+	$sql = "SELECT * FROM transactions WHERE sy = $sy  AND term = $term";
+
+	$results = $conn->query($sql);
+
+	$data["recordsTotal"] = $results->num_rows;
+	$data["recordsFiltered"] = $results->num_rows;
+
+	// search ref
+	if($req["columns"][0]["search"]["value"] != ""){
+		$search = $req["columns"][0]["search"]["value"];
+		$sql .= " AND ref_id LIKE '$search%'";
+		$results = $conn->query($sql);
+		$data["recordsFiltered"] = $results->num_rows;
+	}
+
+	// order by
+	$col = $req['columns'][$req['order'][0]['column']]['data'];
+	$dir = $req['order'][0]['dir'];
+	if($req['order'][0]['column'] == 1)
+		$sql .= " ORDER BY sy, term ";
+	else if($req['order'][0]['column'] == 2)
+		$sql .= " ORDER BY type_id";
+	else
+		$sql .= " ORDER BY $col";
+
+	$sql .= " $dir";
+
 	$results = $conn->query($sql);
 	$transactions = array();
 	while($result = $results->fetch_assoc()){
 		$row = array(
-			'id' => $result['ref_id'],
+			'ref_id' => $result['ref_id'],
+			'sy_term' => substr($result['sy'], 2, 2).substr($result['sy'], 6). " - ".$result['term'],
 			'type' => "not specified",
 			'amount' => $result['amount'],
-			'term' => $result['term'],
-			'sy' => $result['sy'],
 			'remarks' => $result['remarks'],
 			'date_added' => $result['date_added']
 			);
-
+		if($row["remarks"] == ""){
+			$row["remarks"] = "None";
+		}
 		foreach ($types as $value) {
 			if($value["id"] == $result['type_id']){
 				$row["type"] = $value["name"];
 				break;
 			}
 		}
-
 		array_push($transactions, $row);
 	}
-	return $transactions;
+	$data["data"] = $transactions;
+	return $data;
 }
 
-function transactionASC($conn){
+function getExpenses($conn, $req){
 	$types = getTransactionTypes($conn);
-	$quser=mysqli_query($conn,"select * from `school_year` where status=1");
-	// set variable
-	$term=$sy=0;
-	while($row=mysqli_fetch_array($quser)){
-	  $term = $row['term'];
-	  $sy = $row['sy'];
+	$data = array("draw" => intval($req["draw"]));
+	$sy = $req['sy'];
+	$term = $req['term'];
+	$sql = "SELECT * FROM expense WHERE sy = $sy  AND term = $term";
+
+	$results = $conn->query($sql);
+
+	$data["recordsTotal"] = $results->num_rows;
+	$data["recordsFiltered"] = $results->num_rows;
+
+	// search ref
+	if($req["columns"][0]["search"]["value"] != ""){
+		$search = $req["columns"][0]["search"]["value"];
+		$sql .= " AND ref_id LIKE '$search%'";
+		$results = $conn->query($sql);
+		$data["recordsFiltered"] = $results->num_rows;
 	}
 
-	$sql = "SELECT * FROM transactions WHERE term = $term and sy = $sy ORDER BY date_added ASC";
+	// order by
+	$col = $req['columns'][$req['order'][0]['column']]['data'];
+	$dir = $req['order'][0]['dir'];
+	if($req['order'][0]['column'] == 1)
+		$sql .= " ORDER BY sy, term ";
+	else if($req['order'][0]['column'] == 2)
+		$sql .= " ORDER BY type_id";
+	else
+		$sql .= " ORDER BY $col";
+
+	$sql .= " $dir";
+
 	$results = $conn->query($sql);
 	$transactions = array();
 	while($result = $results->fetch_assoc()){
 		$row = array(
-			'id' => $result['ref_id'],
+			'ref_id' => $result['ref_id'],
+			'sy_term' => substr($result['sy'], 2, 2).substr($result['sy'], 6). " - ".$result['term'],
 			'type' => "not specified",
 			'amount' => $result['amount'],
-			'term' => $result['term'],
-			'sy' => $result['sy'],
-			'remarks' => $result['remarks'],
-			'date_added' => $result['date_added']
-			);
-
-		foreach ($types as $value) {
-			if($value["id"] == $result['type_id']){
-				$row["type"] = $value["name"];
-				break;
-			}
-		}
-
-		array_push($transactions, $row);
-	}
-	return $transactions;
-}
-
-function expenseDESC($conn){
-	$types = getTransactionTypes($conn);
-	$sql = "SELECT * FROM expense ORDER BY date_added DESC";
-	$results = $conn->query($sql);
-	$expenses = array();
-	while($result = $results->fetch_assoc()){
-		$row = array(
-			'id' => $result['ref_id'],
-			'type' => "not specified",
-			'amount' => $result['amount'],
-			'term' => $result['term'],
-			'sy' => $result['sy'],
 			'purpose' => $result['purpose'],
 			'date_added' => $result['date_added']
 			);
-
+		if($row["purpose"] == ""){
+			$row["purpose"] = "None";
+		}
 		foreach ($types as $value) {
 			if($value["id"] == $result['type_id']){
 				$row["type"] = $value["name"];
 				break;
 			}
 		}
-
-		array_push($expenses, $row);
+		array_push($transactions, $row);
 	}
-	return $expenses;
+	$data["data"] = $transactions;
+	return $data;
 }
 
 function expenseASC($conn){
@@ -121,53 +145,8 @@ function expenseASC($conn){
 	return $expenses;
 }
 
-// function computeOverAll($conn){
-// 	$transaction = transactionASC($conn);
-// 	$expense = expenseASC($conn);
-// 	$type = getTransactionTypes($conn);
-//
-// 	$data["pie"] = array("transaction" => initializePieType($type),
-// 												"expense" => initializePieType($type));
-// 	$data["total"] = 0;
-//
-// 	foreach ($transaction as $key => $value) {
-// 		if(array_key_exists($value["type"],$data["pie"]["transaction"])){
-// 			$data["pie"]["transaction"][$value["type"]] += floatval($value["amount"]);
-// 		}
-// 		else{
-// 			$data["pie"]["transaction"][$value["type"]] = floatval($value["amount"]);
-// 		}
-//
-// 		$data["total"] += floatval($value["amount"]);
-// 	}
-//
-// 	foreach ($expense as $key => $value) {
-// 		if(array_key_exists($value["type"],$data["pie"]["expense"]) &&
-// 				array_key_exists($value["type"],$data["pie"]["transaction"])){
-// 			$data["pie"]["expense"][$value["type"]] += floatval($value["amount"]);
-// 			$data["pie"]["transaction"][$value["type"]] -= floatval($value["amount"]);
-//
-// 			if($data["pie"]["transaction"][$value["type"]] < 0){
-// 				$data["pie"] = accounting($data["pie"], abs($data["pie"]["transaction"][$value["type"]] ));
-// 			}
-// 		}
-// 		else if(array_key_exists($value["type"],$data["pie"]["expense"]) &&
-// 							!array_key_exists($value["type"],$data["pie"]["transaction"])){
-// 			$data["pie"]["expense"][$value["type"]] += floatval($value["amount"]);
-// 			$data["pie"]["transaction"][$value["type"]] = -floatval($value["amount"]);
-// 		}
-// 		else{
-// 			$data["pie"]["expense"][$value["type"]] = floatval($value["amount"]);
-// 			$data["pie"]["transaction"][$value["type"]] = -floatval($value["amount"]);
-// 		}
-// 		$data["total"] -= floatval($value["amount"]);
-// 	}
-//
-// 	return $data;
-// }
-
+// for over all pie chart
 function computeOverAll($transaction, $expense){
-
 
 	if(($transaction["total"] - $expense["total"]) >= 0 ){
 		$data["pie"]["remaining"] = $transaction["total"] - $expense["total"];
@@ -181,14 +160,31 @@ function computeOverAll($transaction, $expense){
 	return $data;
 }
 
-function computeTransactionsPie($conn){
-	$transaction = transactionASC($conn);
-	$type = getTransactionTypes($conn);
+// for transaction pie chaty
+function computeTransactionsPie($conn, $sy, $term){
+ 	$type = getTransactionTypes($conn);
+	$sql = "SELECT * FROM transactions WHERE term = $term and sy = $sy ORDER BY date_added ASC";
+	$results = $conn->query($sql);
+	$transactions = array();
+
+	while($result = $results->fetch_assoc()){
+		$row = array(
+			'type' => "not specified",
+			'amount' => $result['amount']
+			);
+		foreach ($type as $value) {
+			if($value["id"] == $result['type_id']){
+				$row["type"] = $value["name"];
+				break;
+			}
+		}
+		array_push($transactions, $row);
+	}
 
 	$data["pie"] = initializePieType($type);
 	$data["total"] = 0;
 
-	foreach ($transaction as $key => $value) {
+	foreach ($transactions as $key => $value) {
 		if(array_key_exists($value["type"],$data["pie"]))
 			$data["pie"][$value["type"]] += floatval($value["amount"]);
 		else
@@ -200,9 +196,26 @@ function computeTransactionsPie($conn){
 	return $data;
 }
 
-function computeExpensesPie($conn){
-	$expenses = expenseASC($conn);
+//for expense pie chart
+function computeExpensesPie($conn, $sy, $term){
 	$type = getTransactionTypes($conn);
+	$sql = "SELECT * FROM expense WHERE term = $term and sy = $sy ORDER BY date_added ASC";
+	$results = $conn->query($sql);
+	$expenses = array();
+
+	while($result = $results->fetch_assoc()){
+		$row = array(
+			'type' => "not specified",
+			'amount' => $result['amount']
+			);
+		foreach ($type as $value) {
+			if($value["id"] == $result['type_id']){
+				$row["type"] = $value["name"];
+				break;
+			}
+		}
+		array_push($expenses, $row);
+	}
 
 	$data["pie"] = initializePieType($type);
 	$data["total"] = 0;
@@ -219,19 +232,6 @@ function computeExpensesPie($conn){
 	return $data;
 }
 
-function accounting($data, $amount){
-	foreach ($data["transaction"] as $key => $value) {
-		if($amount > 0 && ($data["transaction"][$key] > $amount)){
-			$data["transaction"][$key] -= $amount;
-			$amount = 0;
-		}
-		else if($amount > 0 && ($data["transaction"][$key] <= $amount)){
-			$amount -= $data["transaction"][$key];
-			$data["transaction"][$key] = 0;
-		}
-	}
-	return $data;
-}
 function initializePieType($type){
 	$data = array();
 	foreach ($type as $value) {
@@ -241,6 +241,7 @@ function initializePieType($type){
 	return $data;
 }
 
+// for line chart of transaction
 function computeTransactions($transactions = array(), $conn){
 	$types = getTransactionTypes($conn);
 	$data = array();
@@ -289,6 +290,7 @@ function computeTransactions($transactions = array(), $conn){
 	return $data;
 }
 
+// for line chart of expense
 function computeExpenses($expenses = array(), $conn){
 	$types = getTransactionTypes($conn);
 	$data = array();
@@ -337,6 +339,7 @@ function computeExpenses($expenses = array(), $conn){
 	return $data;
 }
 
+// for line chart
 function _fillRow($data, $date){
 	foreach($data as $key => $row){
 		if(empty($data[$key])){
@@ -350,6 +353,7 @@ function _fillRow($data, $date){
 	return $data;
 }
 
+// to get current transaction types
 function getTransactionTypes($conn){
 	$sql = "SELECT * FROM type";
 	$results = $conn->query($sql);
@@ -364,32 +368,51 @@ function getTransactionTypes($conn){
 	return $types;
 }
 
-if(isset($_POST['report']) && $_POST['report'] == "transaction"){
-	$data["table"] = transactionDESC($conn);
-	$data["chart"] = computeTransactions(transactionASC($conn), $conn);
-	$data["type"] = getTransactionTypes($conn);
-	echo json_encode($data);
+// get list of sy and term
+function _getSYTerm($conn){
+	$sql = "SELECT * FROM school_year ORDER BY sy ASC";
+	$results = $conn->query($sql);
+	// set variable
+	$data["term"] = 0;
+	$data["sy"] = array();
+	while($result = $results->fetch_assoc()){
+	  if($result["status"] == 1)
+			$data["term"] = $result["term"];
+
+		$data["sy"][$result["sy"]] = $result["status"];
+	}
+
+	return $data;
 }
-else if(isset($_POST['report']) && $_POST['report'] == "expense"){
-	$data["table"] = expenseDESC($conn);
-	$data["chart"] = computeExpenses(expenseASC($conn), $conn);
-	$data["type"] = getTransactionTypes($conn);
-	echo json_encode($data);
+
+if(isset($_REQUEST['table']) && $_REQUEST['table'] == "transaction"){
+	// for Transaction_Reports.php
+	$jsonp = preg_match('/^[$A-Z_][0-9A-Z_$]*$/i', $_GET['callback']) ?
+    $_GET['callback'] :
+    false;
+
+	if ( $jsonp )
+	    echo $jsonp.'('.json_encode(getTransactions($conn, $_REQUEST)).');';
+}
+else if(isset($_REQUEST['table']) && $_REQUEST['table'] == "expense"){
+	// for Expense_Reports.php
+	$jsonp = preg_match('/^[$A-Z_][0-9A-Z_$]*$/i', $_GET['callback']) ?
+    $_GET['callback'] :
+    false;
+
+	if ( $jsonp )
+	    echo $jsonp.'('.json_encode(getExpenses($conn, $_REQUEST)).');';
 }
 else if(isset($_POST['report']) && $_POST['report'] == "overall"){
-	$data["trasaction"] = computeTransactionsPie($conn);
-	$data["expense"] = computeExpensesPie($conn);
+	// for Overall_Report.php
+	$sy = $_POST['sy'];
+	$term = $_POST['term'];
+	$data["trasaction"] = computeTransactionsPie($conn, $sy, $term);
+	$data["expense"] = computeExpensesPie($conn, $sy, $term);
 	$data["overall"] = computeOverAll($data["trasaction"], $data["expense"]);
 	echo json_encode($data);
 }
-else if(isset($_POST['report']) && $_POST['report'] == "overallPie"){
-	echo json_encode(computeOverAll($conn));
-}
-else if(isset($_POST['report']) && $_POST['report'] == "transactionPie"){
-	echo json_encode(computeTransactionsPie($conn));
-}
-
-else if(isset($_POST['report']) && $_POST['report'] == "expensePie"){
-	echo json_encode(computeExpensesPie($conn));
+else if(isset($_POST['action']) && $_POST['action'] == "initialize"){
+	echo json_encode(_getSYTerm($conn));
 }
 ?>
