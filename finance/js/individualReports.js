@@ -95,7 +95,7 @@ if($("#transactionTable").length > 0){
         var res = $("#receipt").modal();
         var instance = M.Modal.getInstance(res);
         instance.open();
-        $("#receipt").css({"display": "flex",  "height": "60%", "overflow": "auto"});
+        $("#receipt").css({"display": "flex",  "height": "40%", "overflow": "auto"});
     } );
 
   });
@@ -199,7 +199,7 @@ else if($("#expenseTable").length > 0){
         var res = $("#receipt").modal();
         var instance = M.Modal.getInstance(res);
         instance.open();
-        $("#receipt").css({"display": "flex",  "height": "60%", "overflow": "auto"});
+        $("#receipt").css({"display": "flex",  "height": "40%", "overflow": "auto"});
     } );
 
   });
