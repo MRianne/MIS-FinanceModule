@@ -55,7 +55,23 @@
                       </div>
 
                     </div>
+										<div class="row">
+											<div class="col s12">
 
+												<label>Type</label>
+												<select id="type" name="type_slct">
+													<?php
+													include('dbcon.php');
+													// run query
+													$quser=mysqli_query($conn,"select * from `type`");
+													// set variable
+													while($row=mysqli_fetch_array($quser)){
+														?> <option value=" <?php echo $row['type_id'] ?> "> <?php echo $row['type_name'] ?> </option> <?php
+													}
+													?>
+												</select>
+											</div>
+										</div>
                     <div class="row">
                       <div class="input-field col s12">
                         <label for="remarks">Remarks</label>

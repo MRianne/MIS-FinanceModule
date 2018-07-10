@@ -83,6 +83,7 @@ if (isset($_POST['searchSub'])){
 if (isset($_POST['sub1'])){
   // echo "insert";
   //inserts transactions  only
+  $type_slct = $_POST['type_slct'];
   $term_slct = $_POST['term_slct1'];
   // $sy_slct = $_POST['sy_slct'];
   $remarks = $_POST['remarks'];
@@ -92,7 +93,7 @@ if (isset($_POST['sub1'])){
   $term = $result_explode[0];
   $sy = $result_explode[1];
   //insert values
-  $insert_me = "INSERT INTO expense (amount, term, sy, purpose) VALUES ($feeDep, $term, $sy, '$remarks')";
+  $insert_me = "INSERT INTO expense (type_id, amount, term, sy, purpose) VALUES ($type_slct, $feeDep, $term, $sy, '$remarks')";
   if ($conn->query($insert_me) === TRUE) {
     echo '<script type="text/javascript">alert("Expense added")</script>';
     echo '<script>
