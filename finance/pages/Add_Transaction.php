@@ -3,8 +3,8 @@
 	<title>Add Transaction</title>
 	<!-- Our Custom CSS -->
 
-	<link rel="stylesheet" href="../../css/materialize.css">
-	<link rel="stylesheet" href="../../css/acm.php">
+	<link rel="stylesheet" href="../css/materialize.css">
+	<link rel="stylesheet" href="../css/acm.php">
 	<link rel="stylesheet" href="../css/finance.css">
 
 	<link rel="icon" type="image/png" href="../images/icons/favicon.ico"/>
@@ -14,13 +14,8 @@
 
 
 <body>
-
+<?php $page = ''; include('navBar.php'); ?>
 	<div class="wrapper">
-
-
-		<?php $page = ''; include('navBar.php'); ?>
-
-
 		<div class="container">
 			<div class="card-panel pos">
 				<div class="row">
@@ -113,8 +108,8 @@
 <!--scripts--->
 
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script src="../../js/init.js"></script>
-<script src="../../js/materialize.js"></script>
+<script src="../js/init.js"></script>
+<script src="../js/materialize.js"></script>
 <script src="../js/pie.js"></script>
 <script src="../js/values.js"></script>
 

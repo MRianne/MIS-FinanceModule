@@ -1,19 +1,8 @@
+
 if($("#transactionTable").length > 0){
-  $.post("../pages/Reports_Generator.php",
-	{
-		action: "initialize",
-	},
-  function(data){
-    $.each(data["sy"], function( index, value ) {
-      if (value == 1)
-        $('#searchSY').append($('<option>', {value: index, text : index, selected: "selected"}));
-      else
-        $('#searchSY').append($('<option>', {value: index, text : index }));
-    });
-    $('#searchTerm option[value="' + data["term"] + '"]').attr("selected", "selected");
-	}, "json");
 
   $(document).ready(function(){
+
     var table = $('#transactionTable').DataTable({
           "processing": true,
           "serverSide": true,
@@ -102,20 +91,6 @@ if($("#transactionTable").length > 0){
 }
 
 else if($("#expenseTable").length > 0){
-  $.post("../pages/Reports_Generator.php",
-	{
-		action: "initialize",
-	},
-  function(data){
-    console.log($("#searchSY option:selected").val());
-    $.each(data["sy"], function( index, value ) {
-      if (value == 1)
-        $('#searchSY').append($('<option>', {value: index, text : index, selected: "selected"}));
-      else
-        $('#searchSY').append($('<option>', {value: index, text : index }));
-    });
-    $('#searchTerm option[value="' + data["term"] + '"]').attr("selected", "selected");
-	}, "json");
 
   $(document).ready(function(){
     var table = $('#expenseTable').DataTable({

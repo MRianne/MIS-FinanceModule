@@ -385,7 +385,4 @@ else if(isset($_POST['report']) && $_POST['report'] == "overall"){
 	$data["types"] = getTransactionTypes($conn);
 	echo json_encode($data);
 }
-else if(isset($_POST['action']) && $_POST['action'] == "initialize"){
-	echo json_encode(_getSYTerm($conn));
-}
 ?>

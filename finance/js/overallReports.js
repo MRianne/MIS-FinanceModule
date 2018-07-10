@@ -1,20 +1,7 @@
 $(".chart").css({'height':'400px'});
 
-$.post("../pages/Reports_Generator.php",
-{
-  action: "initialize",
-},
-function(data){
-  $.each(data["sy"], function( index, value ) {
-    if (value == 1)
-      $('#searchSY').append($('<option>', {value: index, text : index, selected: "selected"}));
-    else
-      $('#searchSY').append($('<option>', {value: index, text : index }));
-  });
-  $('#searchTerm option[value="' + data["term"] + '"]').attr("selected", "selected");
-}, "json");
-
 $(function(){
+
   initializeDoughnutChart(
     $("#searchSY option:selected").val(), $("#searchTerm option:selected").val());
 
@@ -54,6 +41,12 @@ function initializeDoughnutChart(sy, term){
       }
     };
 
+    $("#transaction_legend").css("background-color",
+    'rgb('+ color["transaction"]["r"][0]  + ',' + color["transaction"]["g"][0]  + ',' + color["transaction"]["b"][0] + ')');
+
+    $("#expense_legend").css("background-color",
+    'rgb('+ color["expense"]["r"][0]  + ',' + color["expense"]["g"][0]  + ',' + color["expense"]["b"][0] + ')');
+
     if(data["overall"]["pie"]["remaining"] != null)
       doughnutChart(data["overall"]["pie"], color["transaction"],
                     data["overall"]["status"], "overallPie");
@@ -66,11 +59,13 @@ function initializeDoughnutChart(sy, term){
       doughnutChart(data["expense"]["pie"], color["expense"],
                     "TOTAL EXPENSE", "expensePie");
 
-      initializeLegends(data["types"]);
+      initializeLegends(data["types"], "transaction");
+      initializeLegends(data["types"], "expense");
+
   }, "json");
 }
 
-function initializeLegends(data){
+function initializeLegends(data, pie){
   var colors = {
     transaction: {
       r: [66, 20],
@@ -84,35 +79,24 @@ function initializeLegends(data){
     }
   };
 
-  $("#transaction_legend").css("background-color",
-  'rgb('+ colors["transaction"]["r"][0]  + ',' + colors["transaction"]["g"][0]  + ',' + colors["transaction"]["b"][0] + ')');
-
-  $("#expense_legend").css("background-color",
-  'rgb('+ colors["expense"]["r"][0]  + ',' + colors["expense"]["g"][0]  + ',' + colors["expense"]["b"][0] + ')');
-
   var type = 0;
   var typeLegends = '<center>';
 
   $.each(data, function( index, value ) {
-    var t = colors["transaction"]["r"][0] + "," + colors["transaction"]["g"][0] + "," + colors["transaction"]["b"][0];
-    var e = colors["expense"]["r"][0] + "," + colors["expense"]["g"][0] + "," + colors["expense"]["b"][0];
+    console.log(value["name"]);
+    var t = colors[pie]["r"][0] + "," + colors[pie]["g"][0] + "," + colors[pie]["b"][0];
 
-    typeLegends += '<span style="margin-left: 15px; width:10px; height:10px; background-color: rgb(' + t + ')" id="'
-          + value["name"] + '_transaction_legend"></span> ' +
-          '<span style="width:10px; height:10px; background-color: rgb(' + e + ')" id="'
-                + value["name"] + '_legend"></span> '
-          + value["name"];
-    colors["transaction"]["r"][0] -= colors["transaction"]["r"][1];
-    colors["transaction"]["g"][0] -= colors["transaction"]["g"][1];
-    colors["transaction"]["b"][0] -= colors["transaction"]["b"][1];
-    colors["expense"]["r"][0] -= colors["expense"]["r"][1];
-    colors["expense"]["g"][0] -= colors["expense"]["g"][1];
-    colors["expense"]["b"][0] -= colors["expense"]["b"][1];
+    typeLegends += '<span style="margin-left: 20px; width:10px; height:10px; background-color: rgb(' + t + ')" id="'
+          + value["name"] + '_transaction_legend"></span> ' + value["name"];
+
+    colors[pie]["r"][0] -= colors[pie]["r"][1];
+    colors[pie]["g"][0] -= colors[pie]["g"][1];
+    colors[pie]["b"][0] -= colors[pie]["b"][1];
   });
 
   typeLegends += '</center>';
 
-  $("#type_legends").html(typeLegends);
+  $("#" + pie + "_legends").html(typeLegends);
 }
 
 function doughnutChart(data, colors, title, pie){

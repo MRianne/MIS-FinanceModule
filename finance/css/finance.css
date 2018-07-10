@@ -96,15 +96,14 @@ a.article {
 
 .acm-color{color: rgb(1, 130, 172);}
 .acm-bgcolor{background-color: rgb(1, 130, 172);}
-.acm-nav{
-  position: fixed;
+   position: fixed;
   z-index: 20;
 }
 a.active{
 background-color: rgba(0, 0, 0, 0.1); }
 
 .top-margin {
-	margin: 120px 0px 0px 0px;
+	margin: 50px 0px 0px 0px;
 
 }
 .semi-square {

@@ -1,10 +1,10 @@
 
 <!-- Sidebar Holder -->
 
-<nav class="acm-nav acm-bgcolor">
+<nav class="acm-body acm-bgcolor">
   <div class="nav-wrapper">
     <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-    <ul class="right hide-on-med-and-down">
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li><a <?php echo ($page == 'overall') ? "class='active'" : ""; ?> href="Overall_Report.php">Overall Report</a></li>
       <li><a <?php echo ($page == 'transaction') ? "class='active'" : ""; ?>  href="Transaction_Reports.php">Transaction Report</a></li>
       <li><a <?php echo ($page == 'expense') ? "class='active'" : ""; ?>  href="Expense_Reports.php">Expense Report</a></li>
@@ -17,25 +17,10 @@
     <!--mobile nav-->
   </div>
 </nav>
-<ul id="nav-mobile" class="sidenav" style = "background-color: rgb(1, 130, 172);">
-  <li><a><b>Add Finance</b></a>
-    <ul style = "margin-left: 10%">
-      <li><a href="Add Transaction.php"style = "color: rgb(1, 130, 172);">Add Transaction</a></li>
-      <li><a href="Add Expense.php"style = "color: rgb(1, 130, 172);">Add Expense</a></li>
-    </ul>
-  </li>
-  <li><a><b>Finance Report</b></a>
-    <ul style = "margin-left: 10%">
-      <li><a href="Overall_Report.php" style = "color: rgb(1, 130, 172);">Overall Report</a></li>
-      <li><a href="Transaction_Reports.php" style = "color: rgb(1, 130, 172);">Transaction Report</a></li>
-      <li><a href="Expense_Reports.php" style = "color: rgb(1, 130, 172);">Expense Report</a></li>
-    </ul>
-  </li>
-</ul>
 
 <ul id="addDropdown" class="dropdown-content">
-  <li><a href="Add Transaction.php">Add Transaction</a></li>
-  <li><a href="Add Expense.php">Add Expense</a></li>
+  <li><a href="Add_Transaction.php">Add Transaction</a></li>
+  <li><a href="Add_Expense.php">Add Expense</a></li>
 </ul>
 
 
@@ -89,20 +74,6 @@ if (isset($_POST['sub'])){
 <!-- ADD EXPENSE -->
 
 <?php
-$mysql_hostname = "localhost";
-$mysql_user = "root";
-$mysql_password = "";//CHANGE THIS
-$mysql_database = "acm";//CHANGE THIS
-$bd = mysqli_connect($mysql_hostname, $mysql_user, $mysql_password,$mysql_database) or die("Could not connect database");
-
-error_reporting(E_ERROR | E_PARSE);
-$conn = new mysqli($mysql_hostname, $mysql_user, $mysql_password,$mysql_database);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 include("dbcon.php");
 if (isset($_POST['searchSub'])){
   //searches Student ID
