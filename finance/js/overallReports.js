@@ -91,7 +91,7 @@ function initializeLegends(data){
   'rgb('+ colors["expense"]["r"][0]  + ',' + colors["expense"]["g"][0]  + ',' + colors["expense"]["b"][0] + ')');
 
   var type = 0;
-  var typeLegends = '<div class="row" id = "type_legends" style = "margin-bottom: 0px"> <center>';
+  var typeLegends = '<center>';
 
   $.each(data, function( index, value ) {
     var t = colors["transaction"]["r"][0] + "," + colors["transaction"]["g"][0] + "," + colors["transaction"]["b"][0];
@@ -110,9 +110,9 @@ function initializeLegends(data){
     colors["expense"]["b"][0] -= colors["expense"]["b"][1];
   });
 
-  typeLegends += '</center></div>';
+  typeLegends += '</center>';
 
-  $("#legends").append(typeLegends);
+  $("#type_legends").html(typeLegends);
 }
 
 function doughnutChart(data, colors, title, pie){
