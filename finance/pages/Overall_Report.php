@@ -57,7 +57,6 @@
 											</div>
 										</div>
 										<div class="row" id = "type_legends" style = "margin-bottom: 0px">
-
 										</div>
 									</div>
 								</div>
